@@ -1,37 +1,34 @@
-import { Box } from "@mui/material";
+import React from "react";
 import { Link } from "react-router-dom";
+import { Box, AppBar, Toolbar } from "@mui/material";
 import "./Header.css";
-
 
 export const Header = ({ navLinks }) => {
   return (
-    <>
-      <header className="container-nav">
+    <AppBar position="static" className="container-nav">
+      <Toolbar className="toolbar">
         <Box className="logo">
-          <Link className="navbar-brand" to="/">
+          <Link to="/" aria-label="Inicio" className="navbar-brand">
             <img
               id="header-logo"
-              src="img/logo.png" // Cambia esto a la ruta correcta de tu logo
+              src="img/logo.png"
               alt="Logo"
-              className="img-fluid"
+              className="logo-img"
             />
           </Link>
         </Box>
-
-          <Box component="nav">
-            <Box component="ul" sx={{ listStyleType: "none", padding: "0 10px", margin:0, display: "flex" }}>
-              {navLinks.map((item) => (
-                <Box component="li" key={item.title}>
-                  <Link
-                    to={item.path}
-                  >
-                    {item.title}
-                  </Link>
-                </Box>
-              ))}
-            </Box>
-          </Box>
-      </header>
-    </>
+        <Box component="nav" className="navigator">
+          <ul className="nav-list">
+            {navLinks.map((item) => (
+              <li key={item.title} className="nav-item">
+                <Link className="nav-link" to={item.path}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };

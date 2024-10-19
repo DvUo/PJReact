@@ -1,46 +1,64 @@
 .container-nav {
-    display: flex;
-    width: 100%;
-    height: 5em;
-    padding: 0.5em;
-    justify-content: space-between;
-    background-color: #036;
-    z-index: 10;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  height: 5em;
+  padding: 0.5em;
+  justify-content: space-between;
+  background-color: #036;
+  z-index: 10;
+  align-items: center;
 }
 
-ul li a{
-    padding: 20px;
-    color:#ccc;
-    text-decoration: none;
+.toolbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-ul li a:hover{
-    color:#0bf;
+.logo {
+  display: flex;
+  align-items: center;
 }
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.nav-link {
+  padding: 20px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #0bf;
+}
+
 .navbar-brand img {
-    margin: 0 20px;
-    height: 56px;
-    width: auto;
-    cursor: pointer;
-    filter: drop-shadow(5px 5px 5px #000);
-    will-change: auto;
-}
-
-.navigator {
-    flex-grow: 1; /* Esto permite que el nav ocupe el espacio restante */
+  margin: 0 20px;
+  height: 56px;
+  width: auto;
+  cursor: pointer;
+  filter: drop-shadow(5px 5px 5px #000);
 }
 
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
-    .header {
-        height: auto;
-        flex-direction: column;
-        padding: 10px 0;
-    }
-    
-    .navbar-brand img {
-        margin: 10px;
-        height: 40px;
-    }
+  .container-nav {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    height: auto; /* Permite que la altura se ajuste */
+    padding: 10px 0; /* Ajusta el padding */
+  }
+
+  .navbar-brand img {
+    margin: 10px; /* Ajusta el margen del logo */
+    height: 40px; /* Ajusta la altura del logo */
+  }
 }
