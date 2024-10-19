@@ -1,0 +1,46 @@
+.container-nav {
+    display: flex;
+    width: 100%;
+    height: 5em;
+    padding: 0.5em;
+    justify-content: space-between;
+    background-color: #036;
+    z-index: 10;
+    align-items: center;
+}
+
+ul li a{
+    padding: 20px;
+    color:#ccc;
+    text-decoration: none;
+}
+
+ul li a:hover{
+    color:#0bf;
+}
+.navbar-brand img {
+    margin: 0 20px;
+    height: 56px;
+    width: auto;
+    cursor: pointer;
+    filter: drop-shadow(5px 5px 5px #000);
+    will-change: auto;
+}
+
+.navigator {
+    flex-grow: 1; /* Esto permite que el nav ocupe el espacio restante */
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    .header {
+        height: auto;
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    .navbar-brand img {
+        margin: 10px;
+        height: 40px;
+    }
+}
