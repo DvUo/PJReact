@@ -47,9 +47,11 @@ const LoginForm = () => {
                 color="buttonLogin"
                 className="submit-button"
                 sx={{
+                  width: "50%",
                   p: 1,
-                  mt: 3,
+                  // mt: 10,
                   borderRadius: 2,
+                  margin: "0 auto",
                   transition: "transform 0.3s ease, background-color 0.3s ease",
                   "&:hover": {
                     backgroundColor: "#3e8cd3",

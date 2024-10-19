@@ -5,7 +5,7 @@ import "./Header.css";
 
 export const Header = ({ navLinks }) => {
   return (
-    <AppBar position="static" className="container-nav">
+    <AppBar position="static" className="container-nav" color="primary">
       <Toolbar className="toolbar">
         <Box className="logo">
           <Link to="/" aria-label="Inicio" className="navbar-brand">
