@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import { Footer } from "./components/partials/footer/Footer";
 import "./app.css";
+import CourtRoomPage from "./pages/CourtRoomPage";
+import RoomPage from "./pages/RoomPage";
 
 const navLinks = [
   {
@@ -23,14 +25,11 @@ const navLinks = [
 export const App = () => {
   return (
     <>
-      <div className="app-container">
-        <Header navLinks={navLinks} />
-        <Routes>
-          <Route path={"/"} element={<Home />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-        </Routes>
-        <Footer />
-      </div>
+      <Header navLinks={navLinks} />
+      <Routes>
+        <Route path={"/"} element={<Home />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+      </Routes>
     </>
   );
 };

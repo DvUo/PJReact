@@ -8,10 +8,6 @@ const theme = createTheme({
     secondary: {
       main: "#dc004e",
     },
-    header: {
-      main: "#036",
-      contrastText: "#ccc",
-    },
     buttonLogin: {
       main: "#00AFEA",
     },
