@@ -30,7 +30,7 @@ export const Icons = ({ title, url }) => {
           <IconComponent
             className={`${title}`}
             sx={{
-              fontSize: 40,
+              fontSize: 30,
               color: "white",
             }}
           />

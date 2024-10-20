@@ -7,6 +7,7 @@ import "./app.css";
 import CourtRoomPage from "./pages/CourtRoomPage";
 import RoomPage from "./pages/RoomPage";
 
+
 const navLinks = [
   {
     title: "Home",
@@ -26,13 +27,16 @@ export const App = () => {
   return (
     <>
       <Header navLinks={navLinks} />
-      <Routes>
-        <Route path={"/"} element={<Home />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/salaDeAudiencias" element={<CourtRoomPage />}></Route>
-        <Route path="/salaDeAudiencias/:id" element={<RoomPage />}></Route>
-      </Routes>
-      <Footer></Footer>
+      <div className="app-container">
+        <Routes>
+          <Route path={"/"} element={<Home />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/salaDeAudiencias" element={<CourtRoomPage />}></Route>
+          <Route path="/salaDeAudiencias/:id" element={<RoomPage />}></Route>
+        </Routes>
+      </div>
+
+      <Footer />
     </>
   );
 };

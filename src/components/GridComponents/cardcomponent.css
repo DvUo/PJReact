@@ -1,0 +1,11 @@
+.img-card{
+    filter: drop-shadow(5px 5px 3px #0005);
+    transition: all .5s ease-in;
+}
+
+.img-card:hover{
+    transform: scale(1.05);
+    filter: drop-shadow(5px 5px 10px #0005);
+    
+}
+

@@ -1,0 +1,101 @@
+
+
+/* First image container */
+.container-first-image {
+    height: 50vh;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), 
+                url(public/CorteTemuco.jpg) no-repeat bottom;
+    background-size: cover;
+    background-attachment: fixed;
+    border-bottom-left-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
+    box-shadow: 0.25em 0.2em 0.625em rgba(0, 0, 0, 0.75);
+    transition: all 1s ease-in-out;
+}
+
+
+
+.button-follow-grid .arrow-downdirection {
+    font-size: 5rem;
+    color: var(--primary-color);
+    animation: moveUpDown 2s ease-in-out infinite;
+    filter: drop-shadow(2px 2px 5px #0005);
+}
+
+
+.map-about-information iframe {
+    height: 25em;
+    width: 100%;
+    max-width: 37.5em;
+    border-radius: 1.25em;
+    box-shadow: 0.3125em 0.3125em 0.625em rgba(0, 0, 0, 0.25);
+}
+
+
+
+/* Keyframes for arrow animation */
+@keyframes moveUpDown {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(0.625em); }
+    100% { transform: translateY(0); }
+}
+
+/* Large screens */
+@media screen and (max-width: 1024px) {
+    .title-first-image {
+        font-size: 2rem;
+    }
+
+    .text-section {
+        width: 95%;
+        max-width: 35em;
+        font-size: 0.9em;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+    }
+
+    .button-follow-grid i {
+        font-size: 3rem;
+    }
+}
+
+/* Medium screens */
+@media screen and (max-width: 768px) {
+    .container {
+        margin: 2em 1.5em;
+    }
+
+    .text-section {
+        font-size: 0.85em;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+    }
+}
+
+/* Small screens */
+@media screen and (max-width: 480px) {
+    .container {
+        margin: 1.5em 1em;
+    }
+
+    .title-first-image {
+        font-size: 1.5rem;
+    }
+
+    .text-section {
+        font-size: 0.85em;
+        width: 100%;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+    }
+
+    .button-follow-grid i {
+        font-size: 2.5rem;
+    }
+}

@@ -1,10 +1,10 @@
-import React from "react";
+
 import {
   Box,
   Typography,
   Link,
   AppBar,
-  autocompleteClasses,
+
 } from "@mui/material";
 import { Icons, Reference } from "./subcomponents";
 import Grid from "@mui/material/Grid2";
@@ -35,9 +35,12 @@ export const Footer = () => {
         <Box>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
-              src="images/pjud_blanco.png"
+              src="public/pjud_blanco.png"
               alt="Pjud Logo"
-              style={{ height: "60px" }}
+              style={{ height: "100px",
+                margin:20,
+                width: "auto",
+               }}
             />
           </Link>
         </Box>
