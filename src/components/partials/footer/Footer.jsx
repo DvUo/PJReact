@@ -1,8 +1,14 @@
 import React from "react";
-import { Box, Typography, Link, AppBar, autocompleteClasses } from "@mui/material";
-import {Icons, Reference} from "./subcomponents";
+import {
+  Box,
+  Typography,
+  Link,
+  AppBar,
+  autocompleteClasses,
+} from "@mui/material";
+import { Icons, Reference } from "./subcomponents";
 import Grid from "@mui/material/Grid2";
-import "./footer.css"; 
+import "./footer.css";
 
 export const Footer = () => {
   return (
@@ -11,7 +17,7 @@ export const Footer = () => {
       position="sticky"
       className="footer"
       sx={{
-        marginTop: 'auto',
+        marginTop: "auto",
         borderTopLeftRadius: "10px",
         borderTopRightRadius: "10px",
         padding: "20px 10px",
@@ -98,7 +104,9 @@ export const Footer = () => {
           </ul>
         </Box>
 
-        <Box  sx={{display:"flex", flexDirection:"column",padding:"0 20px"}}>
+        <Box
+          sx={{ display: "flex", flexDirection: "column", padding: "0 20px" }}
+        >
           <Typography
             variant="h6"
             className="titles"

@@ -8,8 +8,12 @@ const theme = createTheme({
     secondary: {
       main: "#dc004e",
     },
-    buttonLogin: {
-      main: "#00AFEA",
+    button: {
+      main: "#2B88DE",
+      dark: "#113F6A",
+    },
+    card: {
+      main: "#B8D6F5",
     },
   },
   typography: {

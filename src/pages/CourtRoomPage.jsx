@@ -1,4 +1,4 @@
-import CourtRoom from "../components/CourtRoom";
+import CourtRoom from "../components/Rooms/CourtRoom";
 
 export default function CourtRoomPage() {
   return (

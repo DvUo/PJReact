@@ -1,32 +1,32 @@
 import React from "react";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import { TextField, Button, Box, Typography } from "@mui/material";
-// import "./LoginForm.css"; // Importa el archivo CSS
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { TextField, Button, Box } from "@mui/material";
+import "./LoginForm.css";
 
 const LoginForm = () => {
   const handleSubmit = (values) => {
-    // Lógica de envío de formulario aquí
     console.log(values);
   };
 
   return (
     <Box className="form-container">
       <Formik
-        initialValues={{ name: "", password: "" }}
+        initialValues={{ usuario: "", password: "" }}
         onSubmit={handleSubmit}
       >
-        {({ handleChange, handleBlur, values }) => (
+        {() => (
           <Form>
             <Box className="form-box">
               <Box className="form-field">
-                <label htmlFor="name">Nombre</label>
+                <label htmlFor="usuario">Usuario</label>
                 <Field
                   as={TextField}
                   required
                   fullWidth
-                  id="name"
-                  name="name"
-                  helperText={<ErrorMessage name="name" />}
+                  id="usuario"
+                  name="usuario"
+                  autoComplete="username"
+                  helperText={<ErrorMessage name="usuario" />}
                 />
               </Box>
               <Box className="form-field">
@@ -38,23 +38,27 @@ const LoginForm = () => {
                   id="password"
                   name="password"
                   type="password"
+                  autoComplete="current-password"
                   helperText={<ErrorMessage name="password" />}
                 />
               </Box>
               <Button
                 type="submit"
                 variant="contained"
-                color="buttonLogin"
+                color="button"
                 className="submit-button"
                 sx={{
+                  color: "#ffff",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  letterSpacing: "1px",
                   width: "50%",
                   p: 1,
-                  // mt: 10,
                   borderRadius: 2,
-                  margin: "0 auto",
+                  margin: "1rem auto 0px auto",
                   transition: "transform 0.3s ease, background-color 0.3s ease",
                   "&:hover": {
-                    backgroundColor: "#3e8cd3",
+                    backgroundColor: "#1E73C2",
                     transform: "scale(1.01) translateY(-3px)",
                   },
                 }}

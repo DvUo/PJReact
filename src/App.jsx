@@ -29,7 +29,10 @@ export const App = () => {
       <Routes>
         <Route path={"/"} element={<Home />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/salaDeAudiencias" element={<CourtRoomPage />}></Route>
+        <Route path="/salaDeAudiencias/:id" element={<RoomPage />}></Route>
       </Routes>
+      <Footer></Footer>
     </>
   );
 };

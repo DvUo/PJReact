@@ -16,7 +16,7 @@
   padding: 40px;
   border-radius: 30px;
   box-shadow: 2px 4px 10px #00000030;
-  background: linear-gradient(135deg, #3e8cd3, #20486d);
+  background: linear-gradient(135deg, #20486d, #3e8cd3, #20486d);
 }
 
 .form-field {
