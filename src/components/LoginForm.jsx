@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { TextField, Button, Box } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import "./LoginForm.css";
 
 const LoginForm = () => {
@@ -25,6 +27,7 @@ const LoginForm = () => {
                   fullWidth
                   id="usuario"
                   name="usuario"
+                  aria-required="true"
                   autoComplete="username"
                   helperText={<ErrorMessage name="usuario" />}
                 />
@@ -38,6 +41,7 @@ const LoginForm = () => {
                   id="password"
                   name="password"
                   type="password"
+                  aria-required="true"
                   autoComplete="current-password"
                   helperText={<ErrorMessage name="password" />}
                 />
@@ -47,6 +51,7 @@ const LoginForm = () => {
                 variant="contained"
                 color="button"
                 className="submit-button"
+                aria-label="Iniciar sesión"
                 sx={{
                   color: "#ffff",
                   fontSize: "1rem",
@@ -57,6 +62,7 @@ const LoginForm = () => {
                   borderRadius: 2,
                   margin: "1rem auto 0px auto",
                   transition: "transform 0.3s ease, background-color 0.3s ease",
+                  willChange: "transform",
                   "&:hover": {
                     backgroundColor: "#1E73C2",
                     transform: "scale(1.01) translateY(-3px)",

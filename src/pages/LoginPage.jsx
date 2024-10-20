@@ -1,6 +1,6 @@
 import React from "react";
 import LoginForm from "../components/LoginForm";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 const LoginPage = () => {
   return (
