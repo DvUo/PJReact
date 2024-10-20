@@ -33,7 +33,7 @@ html, body {
 }
 
 .app-container {
-  background-color: #17a2b8;
+  background-color: #5fbfff;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 150px); 

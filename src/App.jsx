@@ -6,7 +6,7 @@ import { Footer } from "./components/partials/footer/Footer";
 import "./app.css";
 import CourtRoomPage from "./pages/CourtRoomPage";
 import RoomPage from "./pages/RoomPage";
-
+import { FrequentQuestions } from "./pages/FrequentQuestions";
 
 const navLinks = [
   {
@@ -14,8 +14,8 @@ const navLinks = [
     path: "/",
   },
   {
-    title: "Movies",
-    path: "/WebPrueba1/",
+    title: "Preguntas Frecuentes",
+    path: "/preguntasFrecuentes/",
   },
   {
     title: "Moviessss",
@@ -33,6 +33,7 @@ export const App = () => {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/salaDeAudiencias" element={<CourtRoomPage />}></Route>
           <Route path="/salaDeAudiencias/:id" element={<RoomPage />}></Route>
+          <Route path="/preguntasFrecuentes" element={<FrequentQuestions />}></Route>
         </Routes>
       </div>
 
