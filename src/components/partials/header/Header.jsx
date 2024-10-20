@@ -11,7 +11,7 @@ export const Header = ({ navLinks }) => {
           <Link to="/" aria-label="Inicio" className="navbar-brand">
             <img
               id="header-logo"
-              src="img/logo.png"
+              src="public/pjud_blanco.png"
               alt="Logo"
               className="logo-img"
             />
