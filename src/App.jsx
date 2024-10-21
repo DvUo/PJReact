@@ -18,7 +18,15 @@ const navLinks = [
     path: "/preguntasFrecuentes/",
   },
   {
-    title: "Moviessss",
+    title: "Informacion general",
+    path: "/WebPrueba1/",
+  },
+  {
+    title: "Noticias regionales",
+    path: "/WebPrueba1/",
+  },
+  {
+    title: "Tabla de integración",
     path: "/WebPrueba1/",
   },
 ];

@@ -53,7 +53,11 @@ export const HomeElements = () => {
           title={"secretaria"}
           img={"public/secretaria.png"}
         />
-        <CardComponent url={""} title={"publico"} img={"public/publico.png"} />
+        <CardComponent
+          url={"https://buzon.pjud.cl/formulario"}
+          title={"publico"}
+          img={"public/publico.png"}
+        />
         <CardComponent
           url={"/SalaDeAudiencias"}
           title={"salas"}
@@ -78,7 +82,7 @@ export const HomeElements = () => {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+        />
       </Box>
     </>
   );

@@ -18,8 +18,6 @@ export const Footer = () => {
       className="footer"
       sx={{
         marginTop: "auto",
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px",
         padding: "20px 10px",
       }}
     >
