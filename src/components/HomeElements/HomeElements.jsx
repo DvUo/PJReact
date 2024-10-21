@@ -1,12 +1,23 @@
 import { Box, Typography, Link } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import publico from "../../img/publico.png";
+import apertura from "../../img/apertura.png";
+import salas_audiencia from "../../img/salas_audiencia.png";
+import secretaria from "../../img/secretaria.png";
+import corteTemucoImg from '../../img/CorteTemuco.jpg';
 import { CardComponent } from "../GridComponents/CardComponent";
 import "./home.css";
 
 export const HomeElements = () => {
   return (
     <>
-      <Box className="container-first-image">
+      <Box
+        className="container-first-image"
+        sx={{
+          background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url(${corteTemucoImg}) no-repeat bottom fixed`,
+          backgroundSize: "cover",
+        }}
+      >
         <Box sx={{ maxWidth: "40em" }}>
           <Typography
             variant="h1"
@@ -48,26 +59,18 @@ export const HomeElements = () => {
       </Box>
 
       <Box sx={{ padding: "2rem", margin: "0 auto" }} id={"grid-cards"}>
-        <CardComponent
-          url={""}
-          title={"secretaria"}
-          img={"public/secretaria.png"}
-        />
+        <CardComponent url={""} title={"secretaria"} img={secretaria} />
         <CardComponent
           url={"https://buzon.pjud.cl/formulario"}
           title={"publico"}
-          img={"public/publico.png"}
+          img={publico}
         />
         <CardComponent
           url={"/SalaDeAudiencias"}
           title={"salas"}
-          img={"public/salas_audiencia.png"}
+          img={salas_audiencia}
         />
-        <CardComponent
-          url={""}
-          title={"apertura"}
-          img={"public/apertura.png"}
-        />
+        <CardComponent url={""} title={"apertura"} img={apertura} />
       </Box>
 
       <Box

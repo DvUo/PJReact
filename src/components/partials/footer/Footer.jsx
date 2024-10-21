@@ -1,4 +1,4 @@
-
+import pjud from "../../../img/pjud_blanco.png";
 import {
   Box,
   Typography,
@@ -33,12 +33,9 @@ export const Footer = () => {
         <Box>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
-              src="public/pjud_blanco.png"
+              src={pjud}
               alt="Pjud Logo"
-              style={{ height: "100px",
-                margin:20,
-                width: "auto",
-               }}
+              className="logo-pjud"
             />
           </Link>
         </Box>

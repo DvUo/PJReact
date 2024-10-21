@@ -1,4 +1,4 @@
-import React from "react";
+import pjud from "../../../img/pjud_blanco.png";
 import { Link } from "react-router-dom";
 import { Box, AppBar, Toolbar } from "@mui/material";
 import "./Header.css";
@@ -11,7 +11,7 @@ export const Header = ({ navLinks }) => {
           <Link to="/" aria-label="Inicio" className="navbar-brand">
             <img
               id="header-logo"
-              src="public/pjud_blanco.png"
+              src={pjud}
               alt="Logo"
               className="logo-img"
             />
