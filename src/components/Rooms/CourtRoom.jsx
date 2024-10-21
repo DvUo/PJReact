@@ -2,6 +2,7 @@ import { Box, Button, Grid2, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import FilesMonthRooms from "./FilesMonthRooms";
+import BackButton from "../BackButton";
 
 export default function CourtRoom() {
   const cards = ["Salas", "Archivos Mensuales"];
@@ -10,14 +11,15 @@ export default function CourtRoom() {
       container
       spacing={4}
       sx={{
+        position: "relative",
         justifyContent: "center",
-        m: "2.5rem 0",
         alignItems: "flex-start",
       }}
       component={"main"}
     >
+      <BackButton />
       {cards.map((card, index) => (
-        <Grid2 xs={12} sm={6} md={3} key={index}>
+        <Grid2 xs={12} sm={6} md={3} key={index} sx={{ mt: 8, mb: 3 }}>
           <Paper
             component={"section"}
             elevation={5}
@@ -27,7 +29,8 @@ export default function CourtRoom() {
               display: "flex",
               flexDirection: "column",
               textAlign: "center",
-              width: {
+              borderRadius: "1rem",
+              maxWidth: {
                 xs: "300px",
                 sm: "350px",
                 md: "400px",
@@ -42,7 +45,6 @@ export default function CourtRoom() {
                 fontWeight: "700",
                 letterSpacing: 1,
                 mt: 1,
-                // bgcolor: "#ffff",
               }}
             >
               {card}

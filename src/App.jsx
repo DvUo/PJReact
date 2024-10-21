@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/partials/header/Header";
 import Home from "./pages/Home";
-import LoginPage from "./pages/LoginPage";
 import { Footer } from "./components/partials/footer/Footer";
 import "./app.css";
 import CourtRoomPage from "./pages/CourtRoomPage";

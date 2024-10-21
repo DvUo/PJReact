@@ -1,44 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&family=Source+Sans+Pro:wght@400;600&family=Montserrat:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&family=Source+Sans+Pro:wght@400;600&family=Montserrat:wght@400;500;600&display=swap");
 :root {
-    --blue:  #036;
-    --indigo: #6610f2;
-    --purple: #6f42c1;
-    --pink: #e83e8c;
-    --red: #dc3545;
-    --orange: #fd7e14;
-    --yellow: #ffc107;
-    --green: #28a745;
-    --teal: #20c997;
-    --cyan: #0066ff;
-    --white: #fff;
-    --gray: #6c757d;
-    --gray-dark: #343a40;
-    --primary: #0066ff;
-    --secondary: #6c757d;
-    --background:#d8ebef;
-    --success: #28a745;
-    --info: #17a2b8;
-    --warning: #ffc107;
-    --danger: #dc3545;
-    --light: #f8f9fa;
-    --dark: #343a40;
-    --black: #000;
-    --font-family:'Roboto', sans-serif;
+  --blue: #036;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #0066ff;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #0066ff;
+  --secondary: #6c757d;
+  --background: #d8ebef;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --black: #000;
+  --font-family: "Roboto", sans-serif;
 }
-*{font-family: var(--font-family);}
+* {
+  font-family: var(--font-family);
+}
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
 
 .app-container {
-  background-color: #5fbfff;
+  /* background-color: #5fbfff; */
+  background-color: #85ceff;
+  /* background-color: #add2eb; */
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 150px); 
+  min-height: calc(100vh - 150px);
 }
 
 main {
-  flex: 1; 
+  flex: 1;
 }

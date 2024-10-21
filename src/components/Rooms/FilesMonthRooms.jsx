@@ -41,15 +41,15 @@ export default function FilesMonthRooms() {
 
   return (
     <Box>
-      <input type="file" onChange={handleFileChange} required />
+      {/* <input type="file" onChange={handleFileChange} required /> */}
       <Button variant="contained" component="label">
         Subir Archivo
       </Button>
-      {files.length > 0 && (
+      {/* {files.length > 0 && (
         <Typography variant="body2" sx={{ mt: 2 }}>
           Archivos subidos: {files.map((file) => file.name).join(", ")}
         </Typography>
-      )}
+      )} */}
     </Box>
   );
 }

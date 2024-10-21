@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import "./cardcomponent.css";
 
-export const CardComponent = ({url,img,title}) => {
+export const CardComponent = ({ url, img, title }) => {
   return (
     <>
-        <a href={url}>
-            <img src={img} alt={title} className="img-card"/>
-        </a>
+      <Link to={url} className="card-link">
+        <img src={img} alt={title} className="img-card" />
+      </Link>
     </>
-  )
-}
+  );
+};

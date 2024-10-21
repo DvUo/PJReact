@@ -54,8 +54,16 @@ export const HomeElements = () => {
           img={"public/secretaria.png"}
         />
         <CardComponent url={""} title={"publico"} img={"public/publico.png"} />
-        <CardComponent url={""} title={"salas"} img={"public/salas_audiencia.png"} />
-        <CardComponent url={""} title={"apertura"} img={"public/apertura.png"} />
+        <CardComponent
+          url={"/SalaDeAudiencias"}
+          title={"salas"}
+          img={"public/salas_audiencia.png"}
+        />
+        <CardComponent
+          url={""}
+          title={"apertura"}
+          img={"public/apertura.png"}
+        />
       </Box>
 
       <Box

@@ -2,13 +2,14 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function GuideRoom() {
   return (
-    <>
+    <Box sx={{ mt: 2 }}>
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -69,6 +70,6 @@ export default function GuideRoom() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-    </>
+    </Box>
   );
 }
