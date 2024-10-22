@@ -16,7 +16,7 @@ export default function GuideRoom() {
           aria-controls="panel1-content"
           id="panel1-header"
         >
-          <Typography>Expanded by default</Typography>
+          <Typography>Paso 1</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -31,7 +31,7 @@ export default function GuideRoom() {
           aria-controls="panel2-content"
           id="panel2-header"
         >
-          <Typography>Header</Typography>
+          <Typography>Paso 2</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -46,7 +46,7 @@ export default function GuideRoom() {
           aria-controls="panel2-content"
           id="panel2-header"
         >
-          <Typography>Header</Typography>
+          <Typography>Paso 3</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -61,7 +61,7 @@ export default function GuideRoom() {
           aria-controls="panel2-content"
           id="panel2-header"
         >
-          <Typography>Header</Typography>
+          <Typography>Paso 4</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

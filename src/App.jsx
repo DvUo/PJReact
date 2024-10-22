@@ -10,7 +10,7 @@ import { lazy, Suspense } from "react";
 
 const navLinks = [
   {
-    title: "Home",
+    title: "Inicio",
     path: "/",
   },
   {
@@ -23,10 +23,6 @@ const navLinks = [
   },
   {
     title: "Noticias regionales",
-    path: "/WebPrueba1/",
-  },
-  {
-    title: "Tabla de integración",
     path: "/WebPrueba1/",
   },
 ];
