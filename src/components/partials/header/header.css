@@ -47,17 +47,30 @@
   cursor: pointer;
   filter: drop-shadow(5px 5px 5px #000);
 }
+.menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navigator {
+    display: none; 
+  }
+
+  .menu-button {
+    display: block; 
+  }
+}
 
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
   .container-nav {
-    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-    height: auto; /* Permite que la altura se ajuste */
-    padding: 10px 0; /* Ajusta el padding */
+    flex-direction: column; 
+    height: auto; 
+    padding: 10px 0; 
   }
 
   .navbar-brand img {
-    margin: 10px; /* Ajusta el margen del logo */
-    height: 40px; /* Ajusta la altura del logo */
+    margin: 10px; 
+    height: 40px; 
   }
 }

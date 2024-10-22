@@ -3,9 +3,8 @@
 /* First image container */
 .container-first-image {
     height: 50vh;
-    border-bottom-left-radius: 1.25em;
-    border-bottom-right-radius: 1.25em;
-    box-shadow: 0.25em 0.2em 0.625em rgba(0, 0, 0, 0.75);
+
+    box-shadow: 0.25em 0.2em 0.5em rgba(0, 0, 0, 0.3);
 }
 
 

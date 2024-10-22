@@ -1,22 +1,66 @@
+import { useState } from "react";
 import pjud from "../../../img/pjud_blanco.png";
 import { Link } from "react-router-dom";
-import { Box, AppBar, Toolbar } from "@mui/material";
+import  Box  from "@mui/material/Box";
+import  Toolbar  from "@mui/material/Toolbar";
+import  AppBar  from "@mui/material/AppBar";
+import  IconButton  from "@mui/material/IconButton";
+import  List  from "@mui/material/List";
+import ListItem  from "@mui/material/ListItem";
+import  Drawer  from "@mui/material/Drawer";
+import  ListItemText  from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/Menu";
 import "./Header.css";
 
 export const Header = ({ navLinks }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
     <AppBar position="static" className="container-nav" color="primary">
       <Toolbar className="toolbar">
         <Box className="logo">
           <Link to="/" aria-label="Inicio" className="navbar-brand">
-            <img
-              id="header-logo"
-              src={pjud}
-              alt="Logo"
-              className="logo-img"
-            />
+            <img id="header-logo" src={pjud} alt="Logo" className="logo-img" />
           </Link>
         </Box>
+        <IconButton
+          edge="end"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleDrawer}
+          className="menu-button"
+          sx={{ display: { xs: "block", md: "none" } }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        <Drawer
+          anchor="right"
+          open={open}
+          onClose={handleDrawer}
+          PaperProps={{
+            sx: {
+              backgroundColor: "#036", 
+              color: "#eee",
+              height: "100%", 
+            },
+          }}
+        >
+          <List >
+            {navLinks.map((item) => (
+              <ListItem button key={item.title} onClick={handleDrawer}>
+                <Link className="nav-link" to={item.path}>
+                  <ListItemText primary={item.title} />
+                </Link>
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+
         <Box component="nav" className="navigator">
           <ul className="nav-list">
             {navLinks.map((item) => (

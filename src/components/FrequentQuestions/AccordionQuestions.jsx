@@ -13,10 +13,15 @@ export const AccordionQuestions = () => {
   return (
     <>
       {questions.map((item, index) => (
-        <Accordion key={index}>
+        <Accordion key={index} sx={{ background: "#caf0f8" }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${index}-content`}
+            sx={{
+              background: "#ade8f4",
+              padding: 1,
+              borderRadius: "10px",
+            }}
           >
             <Typography
               sx={{
@@ -29,8 +34,15 @@ export const AccordionQuestions = () => {
               {item.question}
             </Typography>
           </AccordionSummary>
-          <AccordionDetails>
-            <Typography sx={{ fontSize: "20px", color: "#333", borderTop: "1px solid #ccc",paddingTop: 2 }}>
+          <AccordionDetails sx={{}}>
+            <Typography
+              sx={{
+                fontSize: "20px",
+                color: "#333",
+                borderTop: "1px solid #03045e",
+                paddingTop: 2,
+              }}
+            >
               {item.answer}
             </Typography>
           </AccordionDetails>
