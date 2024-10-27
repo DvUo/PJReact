@@ -6,9 +6,11 @@ import { BrowserRouter } from "react-router-dom";
 import theme from "./theme.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 
+const basename = import.meta.env.MODE === "production" ? "/PJReact" : "/";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <ScrollToTop />
       <ThemeProvider theme={theme}>
         <CssBaseline />

@@ -3,7 +3,7 @@ import publico from "../../img/publico.png";
 import apertura from "../../img/apertura.png";
 import salas_audiencia from "../../img/salas_audiencia.png";
 import secretaria from "../../img/secretaria.png";
-import corteTemucoImg from '../../img/CorteTemuco.jpg';
+import corteTemucoImg from "../../img/CorteTemuco.jpg";
 import { CardComponent } from "../GridComponents/CardComponent";
 import Grid from "@mui/material/Grid2";
 import "./home.css";
