@@ -10,6 +10,7 @@ import { Icons, Reference } from "./subcomponents";
 import Grid from "@mui/material/Grid2";
 import "./footer.css";
 
+
 export const Footer = () => {
   return (
     <AppBar
@@ -17,20 +18,20 @@ export const Footer = () => {
       position="sticky"
       className="footer"
       sx={{
-        marginTop: "auto",
-        padding: "20px 10px",
+        padding: { xs: "1rem 1.5rem", sm: "2rem" },
       }}
     >
       <Grid
         container
-        spacing={5}
+        spacing={0}
         columns={4}
         sx={{
           justifyContent: "space-between",
           alignItems: "flex-start",
+          
         }}
       >
-        <Box>
+        <Box sx={{width:{xs:"10em", sm:"20em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
               src={pjud}
@@ -59,7 +60,7 @@ export const Footer = () => {
           />
         </Box>
 
-        <Box>
+        <Box >
           <Typography
             variant="h6"
             className="titles"
@@ -103,7 +104,7 @@ export const Footer = () => {
         </Box>
 
         <Box
-          sx={{ display: "flex", flexDirection: "column", padding: "0 20px" }}
+          sx={{ display: "flex", flexDirection: "column" }}
         >
           <Typography
             variant="h6"

@@ -32,8 +32,7 @@ export const Header = ({ navLinks }) => {
           color="inherit"
           aria-label="menu"
           onClick={handleDrawer}
-          className="menu-button"
-          sx={{ display: { xs: "block", md: "none" } }}
+          id="menu-button"
         >
           <MenuIcon />
         </IconButton>
