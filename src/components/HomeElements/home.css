@@ -3,19 +3,8 @@
 /* First image container */
 .container-first-image {
     height: 50vh;
-
     box-shadow: 0.25em 0.2em 0.5em rgba(0, 0, 0, 0.3);
 }
-
-
-
-.button-follow-grid .arrow-downdirection {
-    font-size: 5rem;
-    color: var(--primary-color);
-    animation: moveUpDown 2s ease-in-out infinite;
-    filter: drop-shadow(2px 2px 5px #0005);
-}
-
 
 .map-about-information iframe {
     height: 25em;
@@ -24,17 +13,6 @@
     border-radius: 1.25em;
     box-shadow: 0.3125em 0.3125em 0.625em rgba(0, 0, 0, 0.25);
 }
-
-
-
-/* Keyframes for arrow animation */
-@keyframes moveUpDown {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(0.625em); }
-    100% { transform: translateY(0); }
-}
-
-
 
 
 /* Medium screens */
@@ -61,9 +39,5 @@
     .text-section {
         font-size: 0.85em;
         width: 100%;
-    }
-
-    .button-follow-grid i {
-        font-size: 2.5rem;
     }
 }
