@@ -49,11 +49,10 @@ const LoginForm = () => {
               <Button
                 type="submit"
                 variant="contained"
-                color="button"
                 className="submit-button"
                 aria-label="Iniciar sesión"
                 sx={{
-                  color: "#ffff",
+                  backgroundColor: (theme) => theme.palette.button.main,
                   fontSize: "1rem",
                   fontWeight: "bold",
                   letterSpacing: "1px",
@@ -64,8 +63,8 @@ const LoginForm = () => {
                   transition: "transform 0.3s ease, background-color 0.3s ease",
                   willChange: "transform",
                   "&:hover": {
-                    backgroundColor: "#1E73C2",
-                    transform: "scale(1.01) translateY(-3px)",
+                    backgroundColor: (theme) => theme.palette.button.light,
+                    transform: "scale(1.05) translateY(-3px)",
                   },
                 }}
               >

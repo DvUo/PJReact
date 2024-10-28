@@ -29,11 +29,6 @@
   display: inline-block;
 }
 
-.submit-button:hover {
-  background-color: #3e8cd3;
-  transform: scale(1.01) translateY(-3px);
-}
-
 .form-container .MuiInputBase-root {
   background-color: white;
   color: black;

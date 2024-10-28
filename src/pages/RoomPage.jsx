@@ -32,6 +32,7 @@ export default function RoomPage() {
         sx={{
           justifyContent: "center",
           mt: 8,
+          mb: 8,
         }}
       >
         <Grid2 xs={12} sm={6} md={4}>

@@ -1,11 +1,15 @@
 import { Box, Button, Grid2, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import justiceCourt2 from "../../img/justice-court2.svg";
+import justiceCourt1 from "../../img/justice-court.svg";
 
 import FilesMonthRooms from "./FilesMonthRooms";
 import BackButton from "../BackButton";
+import { useState } from "react";
 
 export default function CourtRoom() {
   const cards = ["Salas", "Archivos Mensuales"];
+
   return (
     <Grid2
       container
@@ -30,6 +34,7 @@ export default function CourtRoom() {
               flexDirection: "column",
               textAlign: "center",
               borderRadius: "1rem",
+              position: "relative",
               maxWidth: {
                 xs: "300px",
                 sm: "350px",
@@ -43,43 +48,57 @@ export default function CourtRoom() {
               variant="h4"
               sx={{
                 fontWeight: "700",
-                letterSpacing: 1,
+                letterSpacing: 5,
                 mt: 1,
+                position: "relative",
               }}
             >
               {card}
             </Typography>
 
             {card === "Salas" && (
-              <Box
-                sx={{
-                  mt: 4,
-                  mb: 4,
-                }}
-              >
-                {Array.from({ length: 3 }, (_, i) => (
-                  <Button
-                    key={i}
-                    variant="contained"
-                    component={Link}
-                    to={`/salaDeAudiencias/${i + 1}`}
-                    sx={{
-                      backgroundColor: (theme) => theme.palette.button.dark,
-                      mt: 3,
-                      width: "13rem",
-                      fontSize: "1.1rem",
-                      willChange: "transform, opcity",
-                      transition: "transform 0.3s ease, opacity 0.3s ease",
-                      transformOrigin: "center center",
-                      "&:hover": {
-                        transform: "scale(1.01) translateY(-2px)",
-                        opacity: 0.95,
-                      },
-                    }}
-                  >
-                    Sala {i + 1}
-                  </Button>
-                ))}
+              <Box sx={{ mt: 4, mb: 4 }}>
+                {Array.from({ length: 3 }, (_, i) => {
+                  const [iconSrc, setIconSrc] = useState(justiceCourt2);
+
+                  return (
+                    <Button
+                      key={i}
+                      variant="contained"
+                      component={Link}
+                      to={`/salaDeAudiencias/${i + 1}`}
+                      onMouseEnter={() => setIconSrc(justiceCourt1)}
+                      onMouseLeave={() => setIconSrc(justiceCourt2)}
+                      endIcon={
+                        <img
+                          src={iconSrc}
+                          alt="Justice Court Icon"
+                          style={{ width: 24, height: 24 }}
+                        />
+                      }
+                      sx={{
+                        backgroundColor: (theme) => theme.palette.button.dark,
+                        mt: 3,
+                        width: "13rem",
+                        fontSize: "1.2rem",
+                        letterSpacing: 1,
+                        fontWeight: "700",
+                        willChange: "transform, opacity",
+                        transition:
+                          "transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease, color 0.3s ease",
+                        transformOrigin: "center center",
+                        "&:hover": {
+                          transform: "scale(1.05) translateY(-5px)",
+                          opacity: 0.95,
+                          backgroundColor: (theme) => theme.palette.card.light,
+                          color: (theme) => theme.palette.button.dark,
+                        },
+                      }}
+                    >
+                      Sala {i + 1}
+                    </Button>
+                  );
+                })}
               </Box>
             )}
 
