@@ -1,35 +1,81 @@
-import React from "react";
+import {useNavigate} from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import "./LoginForm.css";
+import { useUser } from "./context/UserContext"; 
+
+// Configuración global de axios
+axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
-  const handleSubmit = (values) => {
-    console.log(values);
+  const navigate = useNavigate();
+  const {setUserName} = useUser();
+
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    try {
+      await axios.get('http://localhost:8000/sanctum/csrf-cookie');
+
+      const response = await axios.post('http://localhost:8000/api/login', values, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        withCredentials:true,
+      });
+
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        
+        
+        localStorage.setItem('name', JSON.stringify(response.data.user.name));
+        setUserName(response.data.user.name);
+        localStorage.setItem('roles', JSON.stringify(response.data.user.roles));
+        localStorage.setItem('permissions', JSON.stringify(response.data.user.permissions));
+
+        navigate('/');
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      
+      if (error.response) {
+        setErrors(error.response.data.errors || { 
+          general: error.response.data.message 
+        });
+      } else {
+        setErrors({ 
+          general: "Error de conexión con el servidor" 
+        });
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <Box className="form-container">
       <Formik
-        initialValues={{ usuario: "", password: "" }}
+        initialValues={{ name: "", password: "" }}
         onSubmit={handleSubmit}
       >
-        {() => (
+        {({ isSubmitting}) => (
           <Form>
             <Box className="form-box">
+    
               <Box className="form-field">
-                <label htmlFor="usuario">Usuario</label>
+                <label htmlFor="name">Nombre de usuario</label>
                 <Field
                   as={TextField}
                   required
                   fullWidth
-                  id="usuario"
-                  name="usuario"
+                  id="name"
+                  name="name"
                   aria-required="true"
                   autoComplete="username"
-                  helperText={<ErrorMessage name="usuario" />}
+                  helperText={<ErrorMessage name="name" />}
                 />
               </Box>
               <Box className="form-field">
@@ -49,26 +95,10 @@ const LoginForm = () => {
               <Button
                 type="submit"
                 variant="contained"
+                disabled={isSubmitting}
                 className="submit-button"
-                aria-label="Iniciar sesión"
-                sx={{
-                  backgroundColor: (theme) => theme.palette.button.main,
-                  fontSize: "1rem",
-                  fontWeight: "bold",
-                  letterSpacing: "1px",
-                  width: "50%",
-                  p: 1,
-                  borderRadius: 2,
-                  margin: "1rem auto 0px auto",
-                  transition: "transform 0.3s ease, background-color 0.3s ease",
-                  willChange: "transform",
-                  "&:hover": {
-                    backgroundColor: (theme) => theme.palette.button.light,
-                    transform: "scale(1.05) translateY(-3px)",
-                  },
-                }}
               >
-                Iniciar Sesión
+                {isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión'}
               </Button>
             </Box>
           </Form>
