@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/partials/header/Header";
+import { UserProvider } from "./components/context/UserContext";
 import Home from "./pages/Home";
 import { Footer } from "./components/partials/footer/Footer";
 import "./app.css";
@@ -7,6 +8,7 @@ import CourtRoomPage from "./pages/CourtRoomPage";
 import RoomPage from "./pages/RoomPage";
 import { FrequentQuestions } from "./pages/FrequentQuestions";
 import { lazy, Suspense } from "react";
+import Logout from "./components/Logout"
 
 const navLinks = [
   {
@@ -25,12 +27,18 @@ const navLinks = [
     title: "Noticias regionales",
     path: "/WebPrueba1/",
   },
+
+  ...(localStorage.getItem('token') ? [{
+    title: "Cerrar sesión",
+    path: "/logout",
+  }] : []),
 ];
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 
 export const App = () => {
   return (
     <>
+      <UserProvider>
       <Header navLinks={navLinks} />
       <div className="app-container">
         <Suspense fallback={<div>Cargando...</div>}>
@@ -43,11 +51,14 @@ export const App = () => {
               path="/preguntasFrecuentes"
               element={<FrequentQuestions />}
             ></Route>
+            
+            <Route path="/logout" element={<Logout />} /> 
           </Routes>
         </Suspense>
       </div>
 
       <Footer />
+      </UserProvider>
     </>
   );
 };

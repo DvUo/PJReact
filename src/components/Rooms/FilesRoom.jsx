@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material";
 
 export default function FileRoom({ salaId }) {
+
   const handleUpload = () => {
     console.log(`Subiendo archivos para la Sala ${salaId}`);
   };
@@ -12,5 +13,6 @@ export default function FileRoom({ salaId }) {
         Subir Archivos
       </Button>
     </div>
+
   );
 }

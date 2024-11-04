@@ -1,19 +1,21 @@
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
 import pjud from "../../../img/pjud_blanco.png";
 import { Link } from "react-router-dom";
-import  Box  from "@mui/material/Box";
-import  Toolbar  from "@mui/material/Toolbar";
-import  AppBar  from "@mui/material/AppBar";
-import  IconButton  from "@mui/material/IconButton";
-import  List  from "@mui/material/List";
-import ListItem  from "@mui/material/ListItem";
-import  Drawer  from "@mui/material/Drawer";
-import  ListItemText  from "@mui/material/ListItemText";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Drawer from "@mui/material/Drawer";
+import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Header.css";
 
 export const Header = ({ navLinks }) => {
   const [open, setOpen] = useState(false);
+  const { userName } = useUser(); 
 
   const handleDrawer = () => {
     setOpen(!open);
@@ -43,13 +45,13 @@ export const Header = ({ navLinks }) => {
           onClose={handleDrawer}
           PaperProps={{
             sx: {
-              backgroundColor: "#036", 
+              backgroundColor: "#036",
               color: "#eee",
-              height: "100%", 
+              height: "100%",
             },
           }}
         >
-          <List >
+          <List>
             {navLinks.map((item) => (
               <ListItem button key={item.title} onClick={handleDrawer}>
                 <Link className="nav-link" to={item.path}>
@@ -59,7 +61,9 @@ export const Header = ({ navLinks }) => {
             ))}
           </List>
         </Drawer>
-
+        <Box component="nav" className="navigator">
+          {userName ? `Bienvenido, ${userName}!` : ""}
+        </Box>
         <Box component="nav" className="navigator">
           <ul className="nav-list">
             {navLinks.map((item) => (
