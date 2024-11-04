@@ -1,6 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Button, Box, CircularProgress, Alert } from "@mui/material";
-import axios from "axios";
+import {
+  getFiles,
+  uploadFile,
+  deleteFile,
+  updateFile,
+} from "../../Services/FilesServices";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -22,31 +27,23 @@ export default function FilesMonthRooms() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_BASE_URL}/files`);
-      if (Array.isArray(response.data)) {
-        const formattedFiles = response.data.map((file) => ({
-          name: file.name,
-          nameSatinize: file.nameSatinize,
-        }));
-        setFiles(formattedFiles);
-      } else {
-        throw new Error("Los datos recibidos no son un array");
-      }
+      const formattedFiles = await getFiles();
+      setFiles(formattedFiles);
     } catch (error) {
-      setError("Error al cargar los archivos: " + error.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = async (event, sala = 0) => {
     const selectedFiles = Array.from(event.target.files);
     setLoading(true);
     setError(null);
 
     try {
       for (const file of selectedFiles) {
-        await uploadFile(file);
+        await uploadFile(file, sala);
       }
       await fetchFiles();
     } catch (error) {
@@ -57,37 +54,20 @@ export default function FilesMonthRooms() {
     }
   };
 
-  const uploadFile = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    const response = await axios.post(`${API_BASE_URL}/upload`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-
-    if (response.status !== 200) {
-      throw new Error(`Error al subir ${file.name}`);
-    }
-  };
-
   const handleDelete = async (file) => {
     try {
-      const response = await axios.delete(
-        `${API_BASE_URL}/files/delete/${file.nameSatinize}`
+      await deleteFile(file.nameSatinize);
+      setFiles((prevFiles) =>
+        prevFiles.filter((f) => f.nameSatinize !== file.nameSatinize)
       );
-      if (response.status === 200) {
-        setFiles((prevFiles) =>
-          prevFiles.filter((f) => f.nameSatinize !== file.nameSatinize)
-        );
-      }
     } catch (error) {
       console.error("Error al eliminar el archivo:", error);
+      setError("Error al eliminar el archivo: " + error.message);
     }
   };
 
-  const handleUpdateClick = (file) => {
-    setFileToUpdate(file);
+  const handleUpdateClick = (file, sala) => {
+    setFileToUpdate({ ...file, sala });
     updateInputRef.current.click();
   };
 
@@ -97,28 +77,12 @@ export default function FilesMonthRooms() {
     setLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append("file", newFile);
-      const response = await axios.put(
-        `${API_BASE_URL}/files/update/${fileToUpdate.nameSatinize}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        await fetchFiles();
-        console.log("Archivo actualizado exitosamente");
-      }
+      await updateFile(newFile, fileToUpdate); // Llama a la función de servicio
+      await fetchFiles(); // Obtiene los archivos después de actualizar
+      console.log("Archivo actualizado exitosamente");
     } catch (error) {
       console.error("Error en la actualización:", error);
-      setError(
-        "Error al actualizar el archivo: " +
-          (error.response?.data?.message || error.message)
-      );
+      setError("Error al actualizar el archivo: " + error.message);
     } finally {
       setLoading(false);
       setFileToUpdate(null);
@@ -133,18 +97,15 @@ export default function FilesMonthRooms() {
         </Alert>
       )}
 
-      {/* Input de carga de archivos */}
       <input
         type="file"
-        onChange={handleFileChange}
-        multiple
+        onChange={(e) => handleFileChange(e, 0)}
         accept=".pdf"
         style={{ display: "none" }}
         ref={fileInputRef}
         disabled={loading}
       />
 
-      {/* Input para la actualización de archivos */}
       <input
         type="file"
         accept=".pdf"
@@ -186,7 +147,7 @@ export default function FilesMonthRooms() {
                 <Button
                   variant="text"
                   color="info"
-                  onClick={() => handleUpdateClick(file)}
+                  onClick={() => handleUpdateClick(file, 0)}
                   sx={{ minWidth: "auto", padding: 0 }}
                 >
                   <EditIcon sx={{ fontSize: 20 }} />
