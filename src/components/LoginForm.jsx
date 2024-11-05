@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import "./LoginForm.css";
 import { useUser} from "../components/context/UserContext";
 
-// Configuración global de axios
 axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
@@ -16,7 +15,7 @@ const LoginForm = () => {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie');
+      await axios.get("http://localhost:8000/sanctum/csrf-cookie");
 
       const response = await axios.post('http://localhost:8000/api/login', values, {
         headers: {
@@ -100,7 +99,7 @@ const LoginForm = () => {
                 disabled={isSubmitting}
                 className="submit-button"
               >
-                {isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+                {isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"}
               </Button>
             </Box>
           </Form>
@@ -111,3 +110,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+

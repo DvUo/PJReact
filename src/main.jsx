@@ -2,20 +2,18 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { BrowserRouter } from "react-router-dom";
 import theme from "./theme.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
-
-const basename = import.meta.env.MODE === "production" ? "/PJReact" : "/";
+import { HashRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename={basename}>
+    <HashRouter>
       <ScrollToTop />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>
 );
