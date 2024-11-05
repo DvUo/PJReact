@@ -1,10 +1,12 @@
+// Logout.jsx
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "./context/UserContext";
 
 const Logout = () => {
-    
   const navigate = useNavigate();
+  const { logout } = useUser();
 
   const handleLogout = async () => {
     try {
@@ -17,20 +19,18 @@ const Logout = () => {
         withCredentials: true,
       });
 
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
-      localStorage.removeItem('roles');
-      localStorage.removeItem('permissions');
-
+      logout();
       navigate('/');
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
   };
-    useEffect(() => {
+
+  useEffect(() => {
     handleLogout();
   }, []);
-  return null; 
+
+  return null;
 };
 
 export default Logout;

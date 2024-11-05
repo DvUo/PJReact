@@ -1,18 +1,18 @@
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import "./LoginForm.css";
-import { useUser } from "./context/UserContext"; 
+import { useUser} from "../components/context/UserContext";
 
 // Configuración global de axios
 axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const {setUserName} = useUser();
+  const { login } = useUser();  // Obtener la función login del contexto
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
@@ -23,31 +23,34 @@ const LoginForm = () => {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        withCredentials:true,
+        withCredentials: true,
       });
 
       if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-        
-        
-        localStorage.setItem('name', JSON.stringify(response.data.user.name));
-        setUserName(response.data.user.name);
-        localStorage.setItem('roles', JSON.stringify(response.data.user.roles));
-        localStorage.setItem('permissions', JSON.stringify(response.data.user.permissions));
+        // Usa el método `login` del contexto para actualizar el estado de autenticación
+        login(
+          response.data.token,
+          response.data.user.name,
+          response.data.user.roles,
+          response.data.user.permissions
+        );
 
+        // Configura el encabezado de autorización
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+        // Redirige al usuario a la página de inicio
         navigate('/');
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
-      
+
       if (error.response) {
-        setErrors(error.response.data.errors || { 
-          general: error.response.data.message 
+        setErrors(error.response.data.errors || {
+          general: error.response.data.message
         });
       } else {
-        setErrors({ 
-          general: "Error de conexión con el servidor" 
+        setErrors({
+          general: "Error de conexión con el servidor"
         });
       }
     } finally {
@@ -61,10 +64,9 @@ const LoginForm = () => {
         initialValues={{ name: "", password: "" }}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting}) => (
+        {({ isSubmitting }) => (
           <Form>
             <Box className="form-box">
-    
               <Box className="form-field">
                 <label htmlFor="name">Nombre de usuario</label>
                 <Field
