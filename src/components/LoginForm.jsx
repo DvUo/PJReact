@@ -5,25 +5,29 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import "./LoginForm.css";
-import { useUser} from "../components/context/UserContext";
+import { useUser } from "../components/context/UserContext";
 
 axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { login } = useUser();  // Obtener la función login del contexto
+  const { login } = useUser(); // Obtener la función login del contexto
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       await axios.get("http://localhost:8000/sanctum/csrf-cookie");
 
-      const response = await axios.post('http://localhost:8000/api/login', values, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "http://localhost:8000/api/login",
+        values,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
 
       if (response.data.token) {
         // Usa el método `login` del contexto para actualizar el estado de autenticación
@@ -35,21 +39,25 @@ const LoginForm = () => {
         );
 
         // Configura el encabezado de autorización
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.data.token}`;
 
         // Redirige al usuario a la página de inicio
-        navigate('/');
+        navigate("/");
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
 
       if (error.response) {
-        setErrors(error.response.data.errors || {
-          general: error.response.data.message
-        });
+        setErrors(
+          error.response.data.errors || {
+            general: error.response.data.message,
+          }
+        );
       } else {
         setErrors({
-          general: "Error de conexión con el servidor"
+          general: "Error de conexión con el servidor",
         });
       }
     } finally {
@@ -110,4 +118,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

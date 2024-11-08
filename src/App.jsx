@@ -1,4 +1,3 @@
-// App.jsx
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/partials/header/Header";
 import { UserProvider, useUser } from "./components/context/UserContext";
@@ -20,10 +19,12 @@ const AppContent = () => {
     { title: "Inicio", path: "/" },
     { title: "Preguntas Frecuentes", path: "/preguntasFrecuentes/" },
     { title: "Informacion general", path: "/WebPrueba1/" },
-    { title: "Noticias regionales", path: "/WebPrueba1/" },
-    ...(isAuthenticated
-      ? [{ title: "Cerrar sesión", path: "/logout" }]
-      : []),
+    {
+      title: "Noticias regionales",
+      path: "https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial",
+      external: true,
+    },
+    ...(isAuthenticated ? [{ title: "Cerrar sesión", path: "/logout" }] : []),
   ];
 
   return (
@@ -36,7 +37,10 @@ const AppContent = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/salaDeAudiencias" element={<CourtRoomPage />} />
             <Route path="/salaDeAudiencias/:id" element={<RoomPage />} />
-            <Route path="/preguntasFrecuentes" element={<FrequentQuestions />} />
+            <Route
+              path="/preguntasFrecuentes"
+              element={<FrequentQuestions />}
+            />
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </Suspense>

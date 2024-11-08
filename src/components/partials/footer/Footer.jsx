@@ -1,15 +1,8 @@
 import pjud from "../../../img/pjud_blanco.png";
-import {
-  Box,
-  Typography,
-  Link,
-  AppBar,
-
-} from "@mui/material";
+import { Box, Typography, Link, AppBar } from "@mui/material";
 import { Icons, Reference } from "./subcomponents";
 import Grid from "@mui/material/Grid2";
 import "./footer.css";
-
 
 export const Footer = () => {
   return (
@@ -28,23 +21,18 @@ export const Footer = () => {
         sx={{
           justifyContent: "space-between",
           alignItems: "flex-start",
-          
         }}
       >
-        <Box sx={{width:{xs:"10em", sm:"20em" } }}>
+        <Box sx={{ width: { xs: "10em", sm: "20em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
-            <img
-              src={pjud}
-              alt="Pjud Logo"
-              className="logo-pjud"
-            />
+            <img src={pjud} alt="Pjud Logo" className="logo-pjud" />
           </Link>
         </Box>
 
         <Box>
           <Icons
             title={"Facebook"}
-            url={"https://www.facebook.com/pjudoficial"}
+            url={"https://www.facebook.com/PoderJudicialdeChile"}
           />
 
           <Icons title={"Twitter"} url={"https://twitter.com/pjudicialchile"} />
@@ -60,7 +48,7 @@ export const Footer = () => {
           />
         </Box>
 
-        <Box >
+        <Box>
           <Typography
             variant="h6"
             className="titles"
@@ -103,9 +91,7 @@ export const Footer = () => {
           </ul>
         </Box>
 
-        <Box
-          sx={{ display: "flex", flexDirection: "column" }}
-        >
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography
             variant="h6"
             className="titles"
