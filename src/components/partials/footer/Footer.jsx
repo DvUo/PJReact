@@ -23,7 +23,7 @@ export const Footer = () => {
           alignItems: "flex-start",
         }}
       >
-        <Box sx={{ width: { xs: "10em", sm: "15em", md: "20em" } }}>
+        <Box sx={{ width: { xs: "7em", sm: "13em", md: "20em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
               src={pjud}
