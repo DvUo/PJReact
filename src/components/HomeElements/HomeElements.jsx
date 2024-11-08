@@ -1,4 +1,4 @@
-import { Box, Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import publico from "../../img/publico.png";
 import apertura from "../../img/apertura.png";
 import salas_audiencia from "../../img/salas_audiencia.png";
@@ -21,9 +21,13 @@ export const HomeElements = () => {
           <Typography
             variant="h1"
             sx={{
-              fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
+              fontSize: { xs: "2rem", sm: "2rem", md: "3rem" },
               fontWeight: "bold",
-              padding: "1.5em 0 1em 0.5em",
+              padding: {
+                xs: "0.8em 0 1em 0.5em",
+                sm: "1em 0 1em 0.5em",
+                md: "1em 0 1em 0.5em",
+              },
               color: "#fff",
             }}
           >
@@ -32,16 +36,12 @@ export const HomeElements = () => {
           <Typography
             variant="body1"
             sx={{
-
               textAlign: "justify",
-              padding: "0 1em",
+              padding: "0 1rem",
               color: "#eee",
               fontSize: {
-                xs: ".8rem",        
-                sm: "1rem",         
-                md: "1.1rem",       
-                lg: "1.2rem",           
-                "@media (max-width:1430px)": "1rem",  
+                xs: "1rem",
+                sm: "1rem",
               },
             }}
           >
@@ -55,7 +55,6 @@ export const HomeElements = () => {
         </Box>
       </Box>
 
-
       <Grid
         container
         spacing={0}
@@ -64,19 +63,18 @@ export const HomeElements = () => {
           padding: "5em 0",
           justifyContent: "center",
         }}
-      > 
-            <CardComponent
-              url={"https://buzon.pjud.cl/formulario"}
-              title={"publico"}
-              img={publico}
-            />
-            <CardComponent
-              url={"/SalaDeAudiencias"}
-              title={"salas"}
-              img={salas_audiencia}
-            />
-            <CardComponent url={""} title={"apertura"} img={apertura} />
-
+      >
+        <CardComponent
+          url={"https://buzon.pjud.cl/formulario"}
+          title={"publico"}
+          img={publico}
+        />
+        <CardComponent
+          url={"/SalaDeAudiencias"}
+          title={"salas"}
+          img={salas_audiencia}
+        />
+        <CardComponent url={""} title={"apertura"} img={apertura} />
       </Grid>
 
       <Grid
@@ -87,48 +85,46 @@ export const HomeElements = () => {
           marginBottom: "5em",
           justifyContent: "center",
         }}
-      > 
-
-      <Box
-        className="map-about-information"
-        sx= {{width:{xs:"80%",sm:"90%", md:"30em"},
-           height:"25em", display:"flex", justifyContent: "center",}}
-
       >
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.4980591537533!2d-72.5891324875869!3d-38.729331586801294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9614d3c15a4ae635%3A0xa60027e7ca9a9662!2sCorte%20de%20Apelaciones%20de%20Temuco!5e0!3m2!1ses-419!2scl!4v1727174139672!5m2!1ses-419!2scl"
-          style={{ border: 0, width: "90%",  
-          height: "100%"}}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
-      </Box >
-
-      <Box
-        className="facebook-news"
-        sx={{width:{xs:"80%",sm:"90%", md:"30em"},
-            height:"25em",}}
-        >
-        <Typography
-          variant="h3"
+        <Box
+          className="map-about-information"
           sx={{
-            backgroundColor: "#ccc",
-            textAlign: "center",
-            borderRadius: "1.25em",
-            fontSize: "2rem",
-            fontWeight: "bold",
-            height: "100%",
-            width: "100%",
-            color: "#000",
+            width: { xs: "80%", sm: "90%", md: "30em" },
+            height: "25em",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          Noticias
-        </Typography>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.4980591537533!2d-72.5891324875869!3d-38.729331586801294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9614d3c15a4ae635%3A0xa60027e7ca9a9662!2sCorte%20de%20Apelaciones%20de%20Temuco!5e0!3m2!1ses-419!2scl!4v1727174139672!5m2!1ses-419!2scl"
+            style={{ border: 0, width: "90%", height: "100%" }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </Box>
 
+        <Box
+          className="facebook-news"
+          sx={{ width: { xs: "80%", sm: "90%", md: "30em" }, height: "25em" }}
+        >
+          <Typography
+            variant="h3"
+            sx={{
+              backgroundColor: "#ccc",
+              textAlign: "center",
+              borderRadius: "1.25em",
+              fontSize: "2rem",
+              fontWeight: "bold",
+              height: "100%",
+              width: "100%",
+              color: "#000",
+            }}
+          >
+            Noticias
+          </Typography>
+        </Box>
       </Grid>
-     
     </>
   );
 };
