@@ -30,7 +30,6 @@ const LoginForm = () => {
       );
 
       if (response.data.token) {
-        // Usa el método `login` del contexto para actualizar el estado de autenticación
         login(
           response.data.token,
           response.data.user.name,
@@ -38,12 +37,10 @@ const LoginForm = () => {
           response.data.user.permissions
         );
 
-        // Configura el encabezado de autorización
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`;
 
-        // Redirige al usuario a la página de inicio
         navigate("/");
       }
     } catch (error) {

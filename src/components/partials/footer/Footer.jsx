@@ -23,9 +23,14 @@ export const Footer = () => {
           alignItems: "flex-start",
         }}
       >
-        <Box sx={{ width: { xs: "10em", sm: "20em" } }}>
+        <Box sx={{ width: { xs: "10em", sm: "15em", md: "20em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
-            <img src={pjud} alt="Pjud Logo" className="logo-pjud" />
+            <img
+              src={pjud}
+              alt="Pjud Logo"
+              id="id-img-Logo-Pjud"
+              className="logo-pjud"
+            />
           </Link>
         </Box>
 

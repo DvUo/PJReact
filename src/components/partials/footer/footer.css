@@ -4,14 +4,17 @@
   font-size: 15px;
   color: #ddd;
 }
-
-.logo-pjud{
-  height: 200px;
-  width: auto;
+img#id-img-Logo-Pjud {
+  height: auto;
 }
 
+@media screen and (max-width: 1430px) {
+  #id-img-Logo-Pjud{
+    height: 130px;
+  }
+}
 @media screen and (max-width: 768px) {
-  .logo-pjud{
-    height: 150px;
+  #id-img-Logo-Pjud{
+    height: 100px;
   }
 }

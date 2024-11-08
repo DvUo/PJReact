@@ -36,7 +36,13 @@ export const HomeElements = () => {
               textAlign: "justify",
               padding: "0 1em",
               color: "#eee",
-              fontSize: { xs: ".8rem", sm: "1rem", md: "1.2rem" },
+              fontSize: {
+                xs: ".8rem",        
+                sm: "1rem",         
+                md: "1.1rem",       
+                lg: "1.2rem",           
+                "@media (max-width:1430px)": "1rem",  
+              },
             }}
           >
             El Poder Judicial es uno de los tres pilares que sostienen el estado
