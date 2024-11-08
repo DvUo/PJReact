@@ -11,6 +11,7 @@ import Grid from "@mui/material/Grid2";
 import "./footer.css";
 
 
+
 export const Footer = () => {
   return (
     <AppBar
@@ -31,11 +32,12 @@ export const Footer = () => {
           
         }}
       >
-        <Box sx={{width:{xs:"10em", sm:"20em" } }}>
+        <Box sx={{width:{xs:"10em", sm:"15em", md:"20em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
               src={pjud}
               alt="Pjud Logo"
+              id="id-img-Logo-Pjud"
               className="logo-pjud"
             />
           </Link>

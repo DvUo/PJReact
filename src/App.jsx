@@ -1,4 +1,3 @@
-// App.jsx
 import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/partials/header/Header";
 import { UserProvider, useUser } from "./components/context/UserContext";
