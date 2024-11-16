@@ -15,7 +15,7 @@ import "./Header.css";
 
 export const Header = ({ navLinks }) => {
   const [open, setOpen] = useState(false);
-  const { userName } = useUser(); 
+  const { userName } = useUser();
 
   const handleDrawer = () => {
     setOpen(!open);
@@ -68,9 +68,20 @@ export const Header = ({ navLinks }) => {
           <ul className="nav-list">
             {navLinks.map((item) => (
               <li key={item.title} className="nav-item">
-                <Link className="nav-link" to={item.path}>
-                  {item.title}
-                </Link>
+                {item.external ? (
+                  <a
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nav-link"
+                  >
+                    {item.title}
+                  </a>
+                ) : (
+                  <Link className="nav-link" to={item.path}>
+                    {item.title}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

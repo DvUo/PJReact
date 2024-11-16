@@ -1,4 +1,4 @@
-import { Box, Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import publico from "../../img/publico.png";
 import apertura from "../../img/apertura.png";
 import salas_audiencia from "../../img/salas_audiencia.png";
@@ -21,9 +21,13 @@ export const HomeElements = () => {
           <Typography
             variant="h1"
             sx={{
-              fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
+              fontSize: { xs: "2rem", sm: "2rem", md: "3rem" },
               fontWeight: "bold",
-              padding: { xs: "0.8em 0 1em 0.5em", sm: "1.1em 0 1em 0.5em", md: "1.5em 0 1em 0.5em" }, //Cambiar por altura, no por ancho, si no la letra se vera demasiado enana
+              padding: {
+                xs: "0.8em 0 1em 0.5em",
+                sm: "1em 0 1em 0.5em",
+                md: "1em 0 1em 0.5em",
+              },
               color: "#fff",
             }}
           >
@@ -32,15 +36,12 @@ export const HomeElements = () => {
           <Typography
             variant="body1"
             sx={{
-
               textAlign: "justify",
-              padding: "0 1em",
+              padding: "0 1rem",
               color: "#eee",
               fontSize: {
-                xs: ".8rem",        
-                sm: "1rem",         
-                md: "1.1rem",       
-                lg: "1.2rem",           
+                xs: "1rem",
+                sm: "1rem",
               },
             }}
           >
@@ -53,7 +54,6 @@ export const HomeElements = () => {
           </Typography>
         </Box>
       </Box>
-
 
       <Grid
         container
@@ -105,7 +105,6 @@ export const HomeElements = () => {
       </Box >
 
       </Grid>
-     
     </>
   );
 };

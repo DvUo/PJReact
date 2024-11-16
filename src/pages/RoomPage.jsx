@@ -37,18 +37,18 @@ export default function RoomPage() {
       >
         <Grid2 xs={12} sm={6} md={4}>
           <Paper elevation={5} sx={paperStyles}>
-            <Typography variant="h4">Guia a seguir</Typography>
-            <GuideRoom />
-          </Paper>
-        </Grid2>
-        <Grid2 xs={12} sm={6} md={4}>
-          <Paper elevation={5} sx={paperStyles}>
             <ContentRoom salaId={id} />
           </Paper>
         </Grid2>
         <Grid2 xs={12} sm={6} md={4}>
           <Paper elevation={5} sx={paperStyles}>
             <FilesRoom salaId={id} />
+          </Paper>
+        </Grid2>
+        <Grid2 xs={12} sm={6} md={4}>
+          <Paper elevation={5} sx={paperStyles}>
+            <Typography variant="h6">Guia a seguir</Typography>
+            <GuideRoom />
           </Paper>
         </Grid2>
       </Grid2>
