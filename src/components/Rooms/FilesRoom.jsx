@@ -6,8 +6,11 @@ export default function FileRoom({ salaId }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
+  const roles = JSON.parse(localStorage.getItem('roles') || '[]');
+  const hasRoles = (role) => roles.includes(role);
 
   const handleFileChange = async (event) => {
+    
     const selectedFiles = Array.from(event.target.files);
     setLoading(true);
     setError(null);
@@ -38,7 +41,7 @@ export default function FileRoom({ salaId }) {
         disabled={loading}
         multiple
       />
-
+      {hasRoles('reportera') && (
       <Button
         variant="contained"
         onClick={() => fileInputRef.current.click()}
@@ -47,6 +50,7 @@ export default function FileRoom({ salaId }) {
       >
         {loading ? "Subiendo..." : "Subir Archivo"}
       </Button>
+      )}
     </Box>
   );
 }

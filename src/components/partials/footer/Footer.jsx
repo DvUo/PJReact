@@ -32,7 +32,7 @@ export const Footer = () => {
           
         }}
       >
-        <Box sx={{width:{xs:"10em", sm:"15em", md:"20em" } }}>
+        <Box sx={{width:{xs:"10em", sm:"15em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
               src={pjud}
@@ -117,12 +117,12 @@ export const Footer = () => {
           </Typography>
           <ul className="list-footer">
             <li>
-              <Typography>Teléfono: 123456789</Typography>
+              <Typography>Teléfono: (45) 2685200</Typography>
             </li>
             <li>
               <Reference
-                text="Email: example@gmail.com"
-                direction="mailto:example@gmail.com"
+                text="Email: ca_temuco@pjud.cl"
+                direction="mailto:ca_temuco@pjud.cl"
               />
             </li>
           </ul>

@@ -9,6 +9,8 @@ import RoomPage from "./pages/RoomPage";
 import { FrequentQuestions } from "./pages/FrequentQuestions";
 import { lazy, Suspense } from "react";
 import Logout from "./components/Logout";
+import { GeneralInformation } from "./pages/GeneralInformation";
+import Opening_of_files_and_oath_of_lawyers from "./pages/opening_of_files_and_oath_of_lawyers";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 
@@ -17,9 +19,13 @@ const AppContent = () => {
 
   const navLinks = [
     { title: "Inicio", path: "/" },
-    { title: "Preguntas Frecuentes", path: "/preguntasFrecuentes/" },
-    { title: "Informacion general", path: "/WebPrueba1/" },
-    { title: "Noticias regionales", path: "/WebPrueba1/" },
+    { title: "Preguntas Frecuentes", path: "/preguntas-frecuentes/" },
+    { title: "Informacion general", path: "/general-information/" },
+    {
+      title: "Noticias regionales",
+      path: "https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial",
+      isExternal: true,
+    },
     ...(isAuthenticated
       ? [{ title: "Cerrar sesión", path: "/logout" }]
       : []),
@@ -34,8 +40,10 @@ const AppContent = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/salaDeAudiencias" element={<CourtRoomPage />} />
+            <Route path="/Apertura-juramentos" element={<Opening_of_files_and_oath_of_lawyers/>} />
             <Route path="/salaDeAudiencias/:id" element={<RoomPage />} />
-            <Route path="/preguntasFrecuentes" element={<FrequentQuestions />} />
+            <Route path="/preguntas-frecuentes" element={<FrequentQuestions />} />
+            <Route path="/general-information" element={<GeneralInformation />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </Suspense>

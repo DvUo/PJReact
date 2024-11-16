@@ -1,0 +1,41 @@
+.table-information {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+
+}
+
+.table-information th,
+.table-information td {
+    padding: 12px;
+    text-align: left;
+}
+
+.table-information thead th {
+    background-color: #081f34;
+    color: #fff;
+    font-weight: bold;
+}
+
+.table-information tbody tr:nth-child(2n) {
+    background-color: #f9f9f9;
+}
+.table-information tbody tr:nth-child(2n+1) {
+    background-color: #e8faf9;
+}
+
+.table-information tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+.table-information td {
+    color: #333;
+}
+
+.mail-hightlight{
+    font-weight: bold;
+    font-style: underline;
+}

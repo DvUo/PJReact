@@ -17,6 +17,10 @@ export default function FilesMonthRooms() {
   const fileInputRef = useRef(null);
   const updateInputRef = useRef(null);
 
+  const roles = JSON.parse(localStorage.getItem('roles') || '[]');
+
+  const hasRoles = (role) => roles.includes(role);
+
   const API_BASE_URL = "http://localhost:8000/api";
 
   useEffect(() => {
@@ -169,18 +173,20 @@ export default function FilesMonthRooms() {
           </Box>
         </Box>
       )}
-
-      <Button
-        variant="contained"
-        component="label"
-        htmlFor="file-upload"
-        onClick={() => fileInputRef.current.click()}
-        disabled={loading}
-        startIcon={loading && <CircularProgress size={20} />}
-        sx={{ mt: 2 }}
-      >
-        {loading ? "Subiendo..." : "Subir Archivo"}
-      </Button>
+      {hasRoles('secretario') && (
+        <Button
+          variant="contained"
+          component="label"
+          htmlFor="file-upload"
+          onClick={() => fileInputRef.current.click()}
+          disabled={loading}
+          startIcon={loading && <CircularProgress size={20} />}
+          sx={{ mt: 2 }}
+        >
+          {loading ? "Subiendo..." : "Subir Archivo"}
+        </Button>
+      )}
+      
     </Box>
   );
 }

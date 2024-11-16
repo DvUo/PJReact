@@ -9,10 +9,7 @@ import { useState } from "react";
 
 export default function CourtRoom() {
   const cards = ["Salas", "Archivos Mensuales"];
-  
-  const roles = JSON.parse(localStorage.getItem('roles') || '[]');
 
-  const hasRoles = (role) => roles.includes(role);
 
   return (
     <Grid2
@@ -106,7 +103,7 @@ export default function CourtRoom() {
               </Box>
             )}
             
-            {card === "Archivos Mensuales" && hasRoles('secretario') && <FilesMonthRooms />}
+            {card === "Archivos Mensuales"  && <FilesMonthRooms />}
 
           </Paper>
         </Grid2>

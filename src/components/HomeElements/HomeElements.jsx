@@ -23,7 +23,7 @@ export const HomeElements = () => {
             sx={{
               fontSize: { xs: "1.5rem", sm: "2rem", md: "3rem" },
               fontWeight: "bold",
-              padding: "1.5em 0 1em 0.5em",
+              padding: { xs: "0.8em 0 1em 0.5em", sm: "1.1em 0 1em 0.5em", md: "1.5em 0 1em 0.5em" }, //Cambiar por altura, no por ancho, si no la letra se vera demasiado enana
               color: "#fff",
             }}
           >
@@ -41,7 +41,6 @@ export const HomeElements = () => {
                 sm: "1rem",         
                 md: "1.1rem",       
                 lg: "1.2rem",           
-                "@media (max-width:1430px)": "1rem",  
               },
             }}
           >
@@ -75,14 +74,14 @@ export const HomeElements = () => {
               title={"salas"}
               img={salas_audiencia}
             />
-            <CardComponent url={""} title={"apertura"} img={apertura} />
+            <CardComponent url={"/Apertura-juramentos"} title={"apertura"} img={apertura} />
 
       </Grid>
 
       <Grid
         container
         spacing={5}
-        columns={2}
+        columns={1}
         sx={{
           marginBottom: "5em",
           justifyContent: "center",
@@ -91,41 +90,19 @@ export const HomeElements = () => {
 
       <Box
         className="map-about-information"
-        sx= {{width:{xs:"80%",sm:"90%", md:"30em"},
+        sx= {{width:{xs:"80%",sm:"90%", md:"100%"},
            height:"25em", display:"flex", justifyContent: "center",}}
 
       >
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.4980591537533!2d-72.5891324875869!3d-38.729331586801294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9614d3c15a4ae635%3A0xa60027e7ca9a9662!2sCorte%20de%20Apelaciones%20de%20Temuco!5e0!3m2!1ses-419!2scl!4v1727174139672!5m2!1ses-419!2scl"
-          style={{ border: 0, width: "90%",  
+          style={{ border: 0, width: "100%",  
           height: "100%"}}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
       </Box >
-
-      <Box
-        className="facebook-news"
-        sx={{width:{xs:"80%",sm:"90%", md:"30em"},
-            height:"25em",}}
-        >
-        <Typography
-          variant="h3"
-          sx={{
-            backgroundColor: "#ccc",
-            textAlign: "center",
-            borderRadius: "1.25em",
-            fontSize: "2rem",
-            fontWeight: "bold",
-            height: "100%",
-            width: "100%",
-            color: "#000",
-          }}
-        >
-          Noticias
-        </Typography>
-        </Box>
 
       </Grid>
      
