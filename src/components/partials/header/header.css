@@ -31,7 +31,7 @@
 }
 
 .nav-link {
-  padding: 20px;
+  padding: 5px;
   color: #ccc;
   text-decoration: none;
 }
@@ -54,11 +54,11 @@
 
 @media (max-width: 1024px) {
   .navigator {
-    display: none; 
+    display: none;
   }
 
   #menu-button {
-    display: block; 
+    display: block;
   }
   .container-nav {
     padding: 0;
@@ -67,10 +67,9 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
   .navbar-brand img {
-    margin: .5em; 
-    height: 40px; 
+    margin: 0.5em;
+    height: 40px;
   }
 }

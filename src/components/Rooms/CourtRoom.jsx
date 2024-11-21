@@ -8,23 +8,23 @@ import BackButton from "../BackButton";
 import { useState } from "react";
 
 export default function CourtRoom() {
-  const cards = ["Salas", "Archivos Mensuales"];
-
+  const cards = ["Salas", "Archivos"];
 
   return (
     <Grid2
       container
-      spacing={4}
       sx={{
         position: "relative",
         justifyContent: "center",
         alignItems: "flex-start",
+        mb: 4,
+        mt: 1,
       }}
       component={"main"}
     >
       <BackButton />
       {cards.map((card, index) => (
-        <Grid2 xs={12} sm={6} md={3} key={index} sx={{ mt: 8, mb: 3 }}>
+        <Grid2 xs={12} sm={6} md={3} key={index} sx={{ mt: 8, mx: 3 }}>
           <Paper
             component={"section"}
             elevation={5}
@@ -36,7 +36,7 @@ export default function CourtRoom() {
               textAlign: "center",
               borderRadius: "1rem",
               position: "relative",
-              maxWidth: {
+              width: {
                 xs: "300px",
                 sm: "350px",
                 md: "400px",
@@ -49,7 +49,6 @@ export default function CourtRoom() {
               variant="h4"
               sx={{
                 fontWeight: "700",
-                letterSpacing: 5,
                 mt: 1,
                 position: "relative",
               }}
@@ -58,7 +57,7 @@ export default function CourtRoom() {
             </Typography>
 
             {card === "Salas" && (
-              <Box sx={{ mt: 4, mb: 4 }}>
+              <Box sx={{ mt: 4 }}>
                 {Array.from({ length: 3 }, (_, i) => {
                   const [iconSrc, setIconSrc] = useState(justiceCourt2);
 
@@ -67,7 +66,7 @@ export default function CourtRoom() {
                       key={i}
                       variant="contained"
                       component={Link}
-                      to={`/salaDeAudiencias/${i + 1}`}
+                      to={`/sala-de-audiencias/${i + 1}`}
                       onMouseEnter={() => setIconSrc(justiceCourt1)}
                       onMouseLeave={() => setIconSrc(justiceCourt2)}
                       endIcon={
@@ -102,9 +101,8 @@ export default function CourtRoom() {
                 })}
               </Box>
             )}
-            
-            {card === "Archivos Mensuales"  && <FilesMonthRooms />}
 
+            {card === "Archivos" && <FilesMonthRooms />}
           </Paper>
         </Grid2>
       ))}
