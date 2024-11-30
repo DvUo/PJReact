@@ -1,13 +1,23 @@
-import { TextField, Button, Box, Paper, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Paper,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import { useState, useEffect } from "react";
 import { getZoomLink, updateZoomLink } from "../../Services/ZoomServices";
+import { useTheme } from "@mui/material/styles";
+import zoomIcon from "../../img/zoomIcon.svg";
 
 export default function ZoomLink() {
   const [zoomLink, setZoomLink] = useState("");
-  const [isEditing, setIsEditing] = useState(false); // Estado para saber si estamos editando
+  const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Cargar el enlace de Zoom al montar el componente
+  const theme = useTheme();
+
   useEffect(() => {
     const fetchZoomLink = async () => {
       try {
@@ -24,13 +34,12 @@ export default function ZoomLink() {
     fetchZoomLink();
   }, []);
 
-  // Función para guardar el enlace
   const handleSaveLink = async () => {
     try {
       setLoading(true);
       await updateZoomLink(zoomLink);
       alert("Enlace de Zoom actualizado correctamente.");
-      setIsEditing(false); // Deshabilitar la edición después de guardar
+      setIsEditing(false);
     } catch (error) {
       console.error("Error al guardar el enlace de Zoom:", error);
       alert("Hubo un error al guardar el enlace.");
@@ -66,20 +75,57 @@ export default function ZoomLink() {
       ) : (
         <>
           {zoomLink ? (
-            <Paper sx={{ p: 2, mb: 2, display: "flex", alignItems: "center" }}>
-              <Typography variant="body1" sx={{ mr: 2 }}>
+            <Paper
+              sx={{
+                p: 1,
+                display: "flex",
+                alignItems: "center",
+                background: "#2673EF",
+                color: "#ffff",
+                gap: 2,
+              }}
+            >
+              <Avatar
+                src={zoomIcon}
+                alt="Zoom Icon"
+                sx={{
+                  width: 30,
+                  height: 30,
+                  bgcolor: theme.palette.background.default,
+                }}
+              />
+
+              <Typography
+                variant="body1"
+                sx={{
+                  flexGrow: 1,
+                  color: "#ffffff",
+                }}
+              >
                 <a
                   href={zoomLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Enlace a la reunión de Zoom"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                  }}
                 >
                   {zoomLink}
                 </a>
               </Typography>
+
+              {/* Botón Editar */}
               <Button
-                variant="outlined"
-                color="primary"
+                variant="contained"
+                sx={{
+                  backgroundColor: theme.palette.button.main,
+                  color: theme.palette.text.main,
+                  "&:hover": {
+                    backgroundColor: theme.palette.button.dark,
+                  },
+                }}
                 onClick={() => setIsEditing(true)}
                 aria-label="Editar enlace de Zoom"
               >

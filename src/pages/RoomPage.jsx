@@ -1,9 +1,8 @@
-import { Box, Grid2, Paper, Typography } from "@mui/material";
+import { Box, Grid2, Paper } from "@mui/material";
 import { useParams } from "react-router-dom";
 import ContentRoom from "../components/Rooms/ContentRoom";
 import FilesRoom from "../components/Rooms/FilesRoom";
 import BackButton from "../components/BackButton";
-import FileManager from "../components/Rooms/FileManager";
 
 const paperStyles = (theme) => ({
   display: "flex",
@@ -16,7 +15,6 @@ const paperStyles = (theme) => ({
     xs: "300px",
     sm: "350px",
     md: "400px",
-    lg: "500px",
   },
   backgroundColor: theme.palette.card.main,
 });
@@ -41,7 +39,7 @@ export default function RoomPage() {
           </Paper>
         </Grid2>
         <Grid2 xs={12} sm={6} md={4}>
-          <Paper elevation={5} sx={{ p: 3, borderRadius: "1rem" }}>
+          <Paper elevation={5} sx={paperStyles}>
             <FilesRoom salaId={id} />
           </Paper>
         </Grid2>

@@ -5,7 +5,7 @@ const API_BASE_URL = "http://localhost:8000/api";
 export const getZoomLink = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/zoom-link`);
-    return response.data.zoom_link || null; // Retorna el enlace o null si no existe
+    return response.data.zoom_link || null;
   } catch (error) {
     console.error("Error al obtener el enlace de Zoom:", error);
     throw new Error("Error al cargar el enlace de Zoom");

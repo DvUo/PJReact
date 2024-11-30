@@ -1,22 +1,25 @@
-import React, { useEffect, useState, useRef } from "react";
-import {
-  Button,
-  Box,
-  CircularProgress,
-  Alert,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
+import { useEffect, useState, useRef } from "react";
+
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import UploadIcon from "@mui/icons-material/Upload";
+import ArticleIcon from "@mui/icons-material/Article";
+
 import {
   getFiles,
   uploadFile,
   deleteFile,
   updateFile,
 } from "../../Services/FilesServices";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function FilesMonthRooms({ salaId }) {
   const [files, setFiles] = useState([]);
@@ -117,13 +120,12 @@ export default function FilesMonthRooms({ salaId }) {
   };
 
   return (
-    <Box sx={{ p: { xs: 0, sm: 1 } }}>
+    <Box>
       {error && (
         <Alert severity="error" sx={{ mb: 1 }}>
           {error}
         </Alert>
       )}
-
       <input
         type="file"
         onChange={handleFileChange}
@@ -132,7 +134,6 @@ export default function FilesMonthRooms({ salaId }) {
         ref={fileInputRef}
         disabled={loading}
       />
-
       <input
         type="file"
         accept=".pdf"
@@ -141,7 +142,6 @@ export default function FilesMonthRooms({ salaId }) {
         onChange={handleUpdateFileChange}
         disabled={loading}
       />
-
       {files.length > 0 && (
         <Box sx={{ mt: 2 }}>
           <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -167,8 +167,16 @@ export default function FilesMonthRooms({ salaId }) {
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
                     padding: 1,
+                    position: "relative",
+                    textAlign: "center",
                   }}
                 >
+                  <ArticleIcon
+                    style={{
+                      position: "absolute",
+                      left: "8px",
+                    }}
+                  />
                   {file.name.replace(".pdf", "")}
                 </Button>
 
@@ -177,6 +185,7 @@ export default function FilesMonthRooms({ salaId }) {
                   color="info"
                   onClick={() => handleUpdateClick(file)}
                   sx={{ minWidth: "auto", padding: 0 }}
+                  aria-label={`Editar archivo ${file.name}`}
                 >
                   <EditIcon sx={{ fontSize: 20 }} />
                 </Button>
@@ -185,10 +194,8 @@ export default function FilesMonthRooms({ salaId }) {
                   variant="text"
                   color="error"
                   onClick={() => handleDelete(file)}
-                  sx={{
-                    minWidth: "auto",
-                    padding: 0,
-                  }}
+                  sx={{ minWidth: "auto", padding: 0 }}
+                  aria-label={`Eliminar archivo ${file.name}`}
                 >
                   <DeleteIcon sx={{ fontSize: 25 }} />
                 </Button>
@@ -197,7 +204,6 @@ export default function FilesMonthRooms({ salaId }) {
           </Box>
         </Box>
       )}
-
       <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 4 }}>
         <FormControl size="small" disabled={loading} sx={{ width: "150px" }}>
           <InputLabel sx={{ fontSize: 15 }}>Nombre</InputLabel>
@@ -222,7 +228,10 @@ export default function FilesMonthRooms({ salaId }) {
           component="label"
           onClick={() => fileInputRef.current.click()}
           disabled={loading || !selectedName}
-          startIcon={loading && <CircularProgress size={15} />}
+          startIcon={
+            loading ? <CircularProgress size={15} /> : <UploadIcon size={15} />
+          }
+          aria-label="Cargar archivo"
         >
           {loading ? "Subiendo..." : "Subir"}
         </Button>

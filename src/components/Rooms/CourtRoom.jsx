@@ -10,6 +10,22 @@ import { useState } from "react";
 export default function CourtRoom() {
   const cards = ["Salas", "Archivos"];
 
+  const paperStyle = {
+    minHeight: "400px",
+    p: 3,
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    borderRadius: "1rem",
+    position: "relative",
+    width: {
+      xs: "300px",
+      sm: "350px",
+      md: "400px",
+    },
+    backgroundColor: (theme) => theme.palette.card.main,
+  };
+
   return (
     <Grid2
       container
@@ -18,32 +34,13 @@ export default function CourtRoom() {
         justifyContent: "center",
         alignItems: "flex-start",
         mb: 4,
-        mt: 1,
       }}
       component={"main"}
     >
       <BackButton />
       {cards.map((card, index) => (
         <Grid2 xs={12} sm={6} md={3} key={index} sx={{ mt: 8, mx: 3 }}>
-          <Paper
-            component={"section"}
-            elevation={5}
-            sx={{
-              minHeight: "400px",
-              p: 3,
-              display: "flex",
-              flexDirection: "column",
-              textAlign: "center",
-              borderRadius: "1rem",
-              position: "relative",
-              width: {
-                xs: "300px",
-                sm: "350px",
-                md: "400px",
-              },
-              backgroundColor: (theme) => theme.palette.card.main,
-            }}
-          >
+          <Paper component={"section"} elevation={5} sx={paperStyle}>
             <Typography
               component="header"
               variant="h4"
@@ -102,7 +99,11 @@ export default function CourtRoom() {
               </Box>
             )}
 
-            {card === "Archivos" && <FilesMonthRooms />}
+            {card === "Archivos" && (
+              <Box sx={{ mt: 4 }}>
+                <FilesMonthRooms />
+              </Box>
+            )}
           </Paper>
         </Grid2>
       ))}
