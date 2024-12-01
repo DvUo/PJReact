@@ -112,11 +112,10 @@ export default function ZoomLink() {
                     textDecoration: "none",
                   }}
                 >
-                  {zoomLink}
+                  Ingresar via Zoom
                 </a>
               </Typography>
 
-              {/* Botón Editar */}
               <Button
                 variant="contained"
                 sx={{

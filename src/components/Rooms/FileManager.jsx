@@ -20,6 +20,8 @@ import {
   deleteFile,
   updateFile,
 } from "../../Services/FilesServices";
+import CheckWarning from "./CheckWarning";
+import { Typography } from "@mui/material";
 
 export default function FilesMonthRooms({ salaId }) {
   const [files, setFiles] = useState([]);
@@ -32,7 +34,12 @@ export default function FilesMonthRooms({ salaId }) {
 
   const API_BASE_URL = "http://localhost:8000/api";
 
-  const predefinedNames = ["Archivo1", "Archivo2", "Archivo3", "Archivo4"];
+  const predefinedNames = [
+    "Tabla Semanal",
+    "Tabla Agregada",
+    "Archivo3",
+    "Archivo4",
+  ];
 
   useEffect(() => {
     fetchFiles();
@@ -119,6 +126,15 @@ export default function FilesMonthRooms({ salaId }) {
     }
   };
 
+  const [warningVisible, setWarningVisible] = useState({});
+
+  const handleToggleWarning = (fileName, isVisible) => {
+    setWarningVisible((prev) => ({
+      ...prev,
+      [fileName]: isVisible,
+    }));
+  };
+
   return (
     <Box>
       {error && (
@@ -150,55 +166,76 @@ export default function FilesMonthRooms({ salaId }) {
                 key={`${file.nameSatinize}`}
                 sx={{
                   display: "flex",
-                  alignItems: "center",
-                  gap: 1,
+                  flexDirection: "column",
+                  alignItems: "flex-start",
                   width: "100%",
                 }}
               >
-                <Button
-                  variant="contained"
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`${API_BASE_URL}/files/view/${file.nameSatinize}`}
+                {warningVisible[file.name] && (
+                  <Typography sx={{ fontSize: "0.875rem", color: "red" }}>
+                    *Por favor, lee este documento
+                  </Typography>
+                )}
+
+                <Box
                   sx={{
-                    flex: 8,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    padding: 1,
-                    position: "relative",
-                    textAlign: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    width: "100%",
                   }}
                 >
-                  <ArticleIcon
-                    style={{
-                      position: "absolute",
-                      left: "8px",
+                  <Button
+                    variant="contained"
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`${API_BASE_URL}/files/view/${file.nameSatinize}`}
+                    sx={{
+                      flex: 8,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      padding: 1,
+                      position: "relative",
+                      textAlign: "center",
                     }}
+                  >
+                    <ArticleIcon
+                      style={{
+                        position: "absolute",
+                        left: "8px",
+                      }}
+                    />
+                    {file.name.replace(".pdf", "")}
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    color="info"
+                    onClick={() => handleUpdateClick(file)}
+                    sx={{ minWidth: "auto", padding: 0 }}
+                    aria-label={`Editar archivo ${file.name}`}
+                  >
+                    <EditIcon sx={{ fontSize: 25 }} />
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    color="error"
+                    onClick={() => handleDelete(file)}
+                    sx={{ minWidth: "auto", padding: 0 }}
+                    aria-label={`Eliminar archivo ${file.name}`}
+                  >
+                    <DeleteIcon sx={{ fontSize: 25 }} />
+                  </Button>
+
+                  <CheckWarning
+                    onToggle={(isVisible) =>
+                      handleToggleWarning(file.name, isVisible)
+                    }
                   />
-                  {file.name.replace(".pdf", "")}
-                </Button>
-
-                <Button
-                  variant="text"
-                  color="info"
-                  onClick={() => handleUpdateClick(file)}
-                  sx={{ minWidth: "auto", padding: 0 }}
-                  aria-label={`Editar archivo ${file.name}`}
-                >
-                  <EditIcon sx={{ fontSize: 20 }} />
-                </Button>
-
-                <Button
-                  variant="text"
-                  color="error"
-                  onClick={() => handleDelete(file)}
-                  sx={{ minWidth: "auto", padding: 0 }}
-                  aria-label={`Eliminar archivo ${file.name}`}
-                >
-                  <DeleteIcon sx={{ fontSize: 25 }} />
-                </Button>
+                </Box>
               </Box>
             ))}
           </Box>
