@@ -2,13 +2,16 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8000/api";
 
-export const getFiles = async () => {
+export const getFiles = async (folder = 0) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/files`);
+    const url = `${API_BASE_URL}/files?folder=${folder}`;
+    const response = await axios.get(url);
+
     if (Array.isArray(response.data)) {
       return response.data.map((file) => ({
         name: file.name,
         nameSatinize: file.nameSatinize,
+        folder: file.folder,
       }));
     } else {
       throw new Error("Los datos recibidos no son un array");
@@ -43,13 +46,13 @@ export const deleteFile = async (fileNameSatinize) => {
   }
 };
 
-export const updateFile = async (file, fileToUpdate) => {
+export const updateFile = async (file, sala) => {
   const formData = new FormData();
   formData.append("file", file);
-  formData.append("sala", fileToUpdate.sala);
+  formData.append("sala", sala);
 
   const response = await axios.post(
-    `${API_BASE_URL}/files/update/${fileToUpdate.nameSatinize}`,
+    `${API_BASE_URL}/files/update/${file.name}`,
     formData
   );
 

@@ -26,9 +26,7 @@ const AppContent = () => {
       path: "https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial",
       isExternal: true,
     },
-    ...(isAuthenticated
-      ? [{ title: "Cerrar sesión", path: "/logout" }]
-      : []),
+    ...(isAuthenticated ? [{ title: "Cerrar sesión", path: "/logout" }] : []),
   ];
 
   return (
@@ -39,11 +37,20 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/salaDeAudiencias" element={<CourtRoomPage />} />
-            <Route path="/Apertura-juramentos" element={<Opening_of_files_and_oath_of_lawyers/>} />
-            <Route path="/salaDeAudiencias/:id" element={<RoomPage />} />
-            <Route path="/preguntas-frecuentes" element={<FrequentQuestions />} />
-            <Route path="/general-information" element={<GeneralInformation />} />
+            <Route path="/sala-de-audiencias" element={<CourtRoomPage />} />
+            <Route
+              path="/Apertura-juramentos"
+              element={<Opening_of_files_and_oath_of_lawyers />}
+            />
+            <Route path="/sala-de-audiencias/:id" element={<RoomPage />} />
+            <Route
+              path="/preguntas-frecuentes"
+              element={<FrequentQuestions />}
+            />
+            <Route
+              path="/general-information"
+              element={<GeneralInformation />}
+            />
             <Route path="/logout" element={<Logout />} />
           </Routes>
         </Suspense>

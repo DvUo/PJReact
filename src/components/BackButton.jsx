@@ -1,9 +1,9 @@
-// BackButton.js
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 export default function BackButton() {
-  const navigate = useNavigate(); // Inicializa el hook de navegación
+  const navigate = useNavigate();
 
   return (
     <Button
@@ -20,6 +20,7 @@ export default function BackButton() {
         },
         zIndex: 1000,
       }}
+      startIcon={<KeyboardBackspaceIcon />}
     >
       Volver
     </Button>
