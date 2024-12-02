@@ -212,7 +212,7 @@ export default function FilesMonthRooms({ salaId }) {
                     />
                     {file.name.replace(".pdf", "")}
                   </Button>
-                  {hasRole("secretario") && (
+                  {
                     <>
                       <Button
                         variant="text"
@@ -240,7 +240,7 @@ export default function FilesMonthRooms({ salaId }) {
                         }
                       />
                     </>
-                  )}
+                  }
                 </Box>
               </Box>
             ))}
