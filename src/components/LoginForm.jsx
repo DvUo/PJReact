@@ -11,14 +11,14 @@ axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { login } = useUser(); // Obtener la función login del contexto
+  const { login } = useUser(); 
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+      const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
       const response = await axios.post(
-        "http://localhost:8000/api/login",
+        `${BASE_URL}/api/login`,
         values,
         {
           headers: {

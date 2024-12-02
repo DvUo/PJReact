@@ -1,4 +1,4 @@
-// Logout.jsx
+
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,19 +10,28 @@ const Logout = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie');
+      const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      const token = localStorage.getItem('token');
 
-      await axios.post('http://localhost:8000/api/logout', {}, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        withCredentials: true,
-      });
+      if (token) {
+        await axios.post(`${BASE_URL}/api/logout`, {}, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        });
+      }
 
+      
       logout();
+      localStorage.removeItem('token');
       navigate('/');
     } catch (error) {
-      console.error("Error al cerrar sesión:", error);
+      
+      
+      logout();
+      localStorage.removeItem('token');
+      navigate('/');
     }
   };
 

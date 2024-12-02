@@ -13,8 +13,7 @@ export const FilesLawyers = () => {
                 padding: { xs: 2, md: 4 },
             }}
         >
-           
-            <Grid item xs={12}>
+            <Grid  xs={12}>
                 <Box
                     component="section"
                     sx={{
@@ -49,7 +48,7 @@ export const FilesLawyers = () => {
             </Grid>
 
             {/* Bloque 2: Presentación de Documentos */}
-            <Grid item xs={12}>
+            <Grid  xs={12}>
                 <Box
                     component="article"
                     sx={{
