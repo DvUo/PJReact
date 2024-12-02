@@ -8,6 +8,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import { Typography } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -21,7 +22,7 @@ import {
   updateFile,
 } from "../../Services/FilesServices";
 import CheckWarning from "./CheckWarning";
-import { Typography } from "@mui/material";
+import { useUser } from "../context/UserContext";
 
 export default function FilesMonthRooms({ salaId }) {
   const [files, setFiles] = useState([]);
@@ -31,6 +32,8 @@ export default function FilesMonthRooms({ salaId }) {
   const [selectedName, setSelectedName] = useState("");
   const fileInputRef = useRef(null);
   const updateInputRef = useRef(null);
+
+  const { hasRole } = useUser();
 
   const API_BASE_URL = "http://localhost:8000/api";
 
@@ -209,32 +212,35 @@ export default function FilesMonthRooms({ salaId }) {
                     />
                     {file.name.replace(".pdf", "")}
                   </Button>
+                  {hasRole("secretario") && (
+                    <>
+                      <Button
+                        variant="text"
+                        color="info"
+                        onClick={() => handleUpdateClick(file)}
+                        sx={{ minWidth: "auto", padding: 0 }}
+                        aria-label={`Editar archivo ${file.name}`}
+                      >
+                        <EditIcon sx={{ fontSize: 25 }} />
+                      </Button>
 
-                  <Button
-                    variant="text"
-                    color="info"
-                    onClick={() => handleUpdateClick(file)}
-                    sx={{ minWidth: "auto", padding: 0 }}
-                    aria-label={`Editar archivo ${file.name}`}
-                  >
-                    <EditIcon sx={{ fontSize: 25 }} />
-                  </Button>
+                      <Button
+                        variant="text"
+                        color="error"
+                        onClick={() => handleDelete(file)}
+                        sx={{ minWidth: "auto", padding: 0 }}
+                        aria-label={`Eliminar archivo ${file.name}`}
+                      >
+                        <DeleteIcon sx={{ fontSize: 25 }} />
+                      </Button>
 
-                  <Button
-                    variant="text"
-                    color="error"
-                    onClick={() => handleDelete(file)}
-                    sx={{ minWidth: "auto", padding: 0 }}
-                    aria-label={`Eliminar archivo ${file.name}`}
-                  >
-                    <DeleteIcon sx={{ fontSize: 25 }} />
-                  </Button>
-
-                  <CheckWarning
-                    onToggle={(isVisible) =>
-                      handleToggleWarning(file.name, isVisible)
-                    }
-                  />
+                      <CheckWarning
+                        onToggle={(isVisible) =>
+                          handleToggleWarning(file.name, isVisible)
+                        }
+                      />
+                    </>
+                  )}
                 </Box>
               </Box>
             ))}

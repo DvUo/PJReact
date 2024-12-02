@@ -6,7 +6,9 @@ const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
   const [userName, setUserName] = useState(localStorage.getItem("name") || "");
 
   const login = (token, name, roles, permissions) => {
@@ -32,8 +34,21 @@ export const UserProvider = ({ children }) => {
     setUserName(localStorage.getItem("name") || "");
   }, []);
 
+  const hasRole = (role) => {
+    const roles = JSON.parse(localStorage.getItem("roles") || "[]");
+    return roles.includes(role);
+  };
+
   return (
-    <UserContext.Provider value={{ isAuthenticated, userName, login, logout }}>
+    <UserContext.Provider
+      value={{
+        isAuthenticated,
+        userName,
+        login,
+        logout,
+        hasRole,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
