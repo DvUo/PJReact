@@ -19,17 +19,19 @@ export const Footer = () => {
         spacing={0}
         columns={4}
         sx={{
-          justifyContent: "space-between",
-          alignItems: "flex-start",
+          justifyContent: {sm: "space-around", md: "space-between"},
+          
+          
         }}
       >
-        <Box sx={{ width: { xs: "7em", sm: "13em", md: "20em" } }}>
+        <Box sx={{ width: { xs: "12em", sm: "15em", md: "20em" } }}>
           <Link href="https://www.pjud.cl/" target="_blank" rel="noopener">
             <img
               src={pjud}
               alt="Pjud Logo"
               id="id-img-Logo-Pjud"
               className="logo-pjud"
+              sx={{ width: "100%" }}
             />
           </Link>
         </Box>

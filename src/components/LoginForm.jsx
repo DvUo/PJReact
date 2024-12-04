@@ -1,19 +1,38 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { Formik, Form, Field } from "formik";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  Container,
+  Paper
+} from "@mui/material";
 import axios from "axios";
-import Box from "@mui/material/Box";
-import "./LoginForm.css";
 import { useUser } from "../components/context/UserContext";
-
-axios.defaults.withCredentials = true;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { login } = useUser(); 
+  const { login } = useUser();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+  const validateForm = (values) => {
+    const errors = {};
+
+    if (!values.username) {
+      errors.username = "El nombre de usuario es requerido";
+    }
+
+    if (!values.password) {
+      errors.password = "La contraseña es requerida";
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -47,15 +66,11 @@ const LoginForm = () => {
       console.error("Error al iniciar sesión:", error);
 
       if (error.response) {
-        setErrors(
-          error.response.data.errors || {
-            general: error.response.data.message,
-          }
+        setErrorMessage(
+          error.response.data.message || "Credenciales incorrectas"
         );
       } else {
-        setErrors({
-          general: "Error de conexión con el servidor",
-        });
+        setErrorMessage("Error de conexión con el servidor");
       }
     } finally {
       setSubmitting(false);
@@ -63,54 +78,136 @@ const LoginForm = () => {
   };
 
   return (
-    <Box className="form-container">
-      <Formik
-        initialValues={{ name: "", password: "" }}
-        onSubmit={handleSubmit}
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height: '100vh'
+      }}
+    >
+      <Paper
+        elevation={6}
+        sx={{
+          padding: {
+            xs: 2,  // Pequeño
+            sm: 3,  // Mediano
+            md: 4   // Grande
+          },
+          borderRadius: 2
+        }}
       >
-        {({ isSubmitting }) => (
-          <Form>
-            <Box className="form-box">
-              <Box className="form-field">
-                <label htmlFor="name">Nombre de usuario</label>
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{
+            fontWeight: 'bold',
+            color: 'primary.main',
+            mb: {
+              xs: 2,
+              sm: 3,
+              md: 4
+            }
+          }}
+        >
+          Iniciar Sesión
+        </Typography>
+
+        {errorMessage && (
+          <Alert
+            severity="error"
+            onClose={() => setErrorMessage("")}
+            sx={{
+              mb: {
+                xs: 1,
+                sm: 2,
+                md: 3
+              }
+            }}
+          >
+            {errorMessage}
+          </Alert>
+        )}
+
+        <Formik
+          initialValues={{ username: '', password: '' }}
+          validate={validateForm}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: {
+                  xs: 1,
+                  sm: 2,
+                  md: 3
+                }
+              }}>
                 <Field
                   as={TextField}
-                  required
+                  name="username"
+                  label="Nombre de usuario"
+                  variant="outlined"
                   fullWidth
-                  id="name"
-                  name="name"
-                  aria-required="true"
-                  autoComplete="username"
-                  helperText={<ErrorMessage name="name" />}
+                  error={touched.username && Boolean(errors.username)}
+                  helperText={touched.username && errors.username}
+                  sx={{
+                    mb: {
+                      xs: 1,
+                      sm: 2
+                    }
+                  }}
                 />
-              </Box>
-              <Box className="form-field">
-                <label htmlFor="password">Contraseña</label>
+
                 <Field
                   as={TextField}
-                  required
-                  fullWidth
-                  id="password"
                   name="password"
                   type="password"
-                  aria-required="true"
-                  autoComplete="current-password"
-                  helperText={<ErrorMessage name="password" />}
+                  label="Contraseña"
+                  variant="outlined"
+                  fullWidth
+                  error={touched.password && Boolean(errors.password)}
+                  helperText={touched.password && errors.password}
+                  sx={{
+                    mb: {
+                      xs: 1,
+                      sm: 2
+                    }
+                  }}
                 />
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={isSubmitting}
+                  fullWidth
+                  size="large"
+                  sx={{
+                    mt: {
+                      xs: 1,
+                      sm: 2,
+                      md: 3
+                    },
+                    py: {
+                      xs: 1,
+                      sm: 1.5,
+                      md: 2
+                    }
+                  }}
+                >
+                  {isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"}
+                </Button>
               </Box>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={isSubmitting}
-                className="submit-button"
-              >
-                {isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"}
-              </Button>
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+            </Form>
+          )}
+        </Formik>
+      </Paper>
+    </Container>
   );
 };
 
