@@ -16,6 +16,9 @@ export default function ZoomLink() {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const roles = JSON.parse(localStorage.getItem("roles") || "[]");
+  const hasRoles = (role) => roles.includes(role);
+
   const theme = useTheme();
 
   useEffect(() => {
@@ -24,6 +27,7 @@ export default function ZoomLink() {
         setLoading(true);
         const link = await getZoomLink();
         setZoomLink(link || "");
+        if (!link && hasRoles("secretario")) setIsEditing(true); // Solo entra en modo edición si no hay enlace y el rol es "secretario"
       } catch (error) {
         console.error("Error al cargar el enlace de Zoom:", error);
       } finally {
@@ -49,7 +53,7 @@ export default function ZoomLink() {
   };
 
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box sx={{ mt: 4 }}>
       {isEditing ? (
         <>
           <TextField
@@ -72,71 +76,69 @@ export default function ZoomLink() {
             {loading ? "Guardando..." : "Guardar enlace"}
           </Button>
         </>
-      ) : (
-        <>
-          {zoomLink ? (
-            <Paper
-              sx={{
-                p: 1,
-                display: "flex",
-                alignItems: "center",
-                background: "#2673EF",
-                color: "#ffff",
-                gap: 2,
+      ) : zoomLink ? (
+        <Paper
+          sx={{
+            p: 1,
+            display: "flex",
+            alignItems: "center",
+            background: "#2673EF",
+            color: "#ffff",
+            gap: 2,
+          }}
+        >
+          <Avatar
+            src={zoomIcon}
+            alt="Zoom Icon"
+            sx={{
+              width: 30,
+              height: 30,
+              bgcolor: theme.palette.background.default,
+            }}
+          />
+
+          <Typography
+            variant="body1"
+            sx={{
+              flexGrow: 1,
+              color: "#ffffff",
+            }}
+          >
+            <a
+              href={zoomLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Enlace a la reunión de Zoom"
+              style={{
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              <Avatar
-                src={zoomIcon}
-                alt="Zoom Icon"
-                sx={{
-                  width: 30,
-                  height: 30,
-                  bgcolor: theme.palette.background.default,
-                }}
-              />
+              Ingresar via Zoom
+            </a>
+          </Typography>
 
-              <Typography
-                variant="body1"
-                sx={{
-                  flexGrow: 1,
-                  color: "#ffffff",
-                }}
-              >
-                <a
-                  href={zoomLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Enlace a la reunión de Zoom"
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none",
-                  }}
-                >
-                  Ingresar via Zoom
-                </a>
-              </Typography>
-
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: theme.palette.button.main,
-                  color: theme.palette.text.main,
-                  "&:hover": {
-                    backgroundColor: theme.palette.button.dark,
-                  },
-                }}
-                onClick={() => setIsEditing(true)}
-                aria-label="Editar enlace de Zoom"
-              >
-                Editar
-              </Button>
-            </Paper>
-          ) : (
-            <Typography variant="body1">
-              No se ha guardado ningún enlace aún.
-            </Typography>
+          {hasRoles("secretario") && (
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.button.main,
+                color: theme.palette.text.main,
+                "&:hover": {
+                  backgroundColor: theme.palette.button.dark,
+                },
+              }}
+              onClick={() => setIsEditing(true)}
+              aria-label="Editar enlace de Zoom"
+            >
+              Editar
+            </Button>
           )}
-        </>
+        </Paper>
+      ) : (
+        <Typography variant="body1" sx={{ color: "#FF0000" }}>
+          No está disponible el enlace a Zoom.
+        </Typography>
       )}
     </Box>
   );
