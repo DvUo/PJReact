@@ -22,7 +22,6 @@ import {
   updateFile,
 } from "../../Services/FilesServices";
 import CheckWarning from "./CheckWarning";
-import { useUser } from "../context/UserContext";
 
 export default function FilesMonthRooms({ salaId }) {
   const [files, setFiles] = useState([]);
@@ -30,12 +29,14 @@ export default function FilesMonthRooms({ salaId }) {
   const [error, setError] = useState(null);
   const [fileToUpdate, setFileToUpdate] = useState(null);
   const [selectedName, setSelectedName] = useState("");
+  const [warningVisible, setWarningVisible] = useState({});
   const fileInputRef = useRef(null);
   const updateInputRef = useRef(null);
+  const roles = JSON.parse(localStorage.getItem("roles") || "[]");
 
-  const { hasRole } = useUser();
+  const hasRoles = (role) => roles.includes(role);
 
-  const API_BASE_URL = "http://localhost:8000/api";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const predefinedNames = [
     "Tabla Semanal",
@@ -53,11 +54,35 @@ export default function FilesMonthRooms({ salaId }) {
       setLoading(true);
       setError(null);
 
-      const formattedFiles = await getFiles(salaId);
-      setFiles(formattedFiles);
+      if (hasRoles("secretario")) {
+        const formattedFiles = await getFiles(salaId);
+        setFiles(formattedFiles);
+        setLoading(false);
+      } else {
+        const cachedFiles = localStorage.getItem(`files-${salaId}`);
+
+        if (cachedFiles) {
+          setFiles(JSON.parse(cachedFiles));
+        }
+
+        const formattedFiles = await getFiles(salaId);
+
+        const localStorageFiles = JSON.parse(cachedFiles || "[]");
+
+        if (
+          JSON.stringify(formattedFiles) !== JSON.stringify(localStorageFiles)
+        ) {
+          setFiles(formattedFiles);
+          localStorage.setItem(
+            `files-${salaId}`,
+            JSON.stringify(formattedFiles)
+          );
+        }
+
+        setLoading(false);
+      }
     } catch (error) {
       setError(error.message);
-    } finally {
       setLoading(false);
     }
   };
@@ -115,11 +140,9 @@ export default function FilesMonthRooms({ salaId }) {
       const updatedFile = new File([newFile], fileToUpdate.nameSatinize, {
         type: newFile.type,
       });
-      console.log("updatedFile: ", updatedFile);
 
       await updateFile(updatedFile, salaId);
       await fetchFiles();
-      console.log("Archivo actualizado exitosamente");
     } catch (error) {
       console.error("Error en la actualización:", error);
       setError("Error al actualizar el archivo: " + error.message);
@@ -128,8 +151,6 @@ export default function FilesMonthRooms({ salaId }) {
       setFileToUpdate(null);
     }
   };
-
-  const [warningVisible, setWarningVisible] = useState({});
 
   const handleToggleWarning = (fileName, isVisible) => {
     setWarningVisible((prev) => ({
@@ -162,7 +183,7 @@ export default function FilesMonthRooms({ salaId }) {
         disabled={loading}
       />
       {files.length > 0 && (
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 5 }}>
           <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
             {files.map((file) => (
               <Box
@@ -175,8 +196,14 @@ export default function FilesMonthRooms({ salaId }) {
                 }}
               >
                 {warningVisible[file.name] && (
-                  <Typography sx={{ fontSize: "0.875rem", color: "red" }}>
-                    *Por favor, lee este documento
+                  <Typography
+                    sx={{
+                      fontSize: "0.875rem",
+                      color: "red",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Por favor, revise este documento con prioridad.
                   </Typography>
                 )}
 
@@ -202,6 +229,10 @@ export default function FilesMonthRooms({ salaId }) {
                       padding: 1,
                       position: "relative",
                       textAlign: "center",
+                      transition: "transform 0.3s ease",
+                      "&:hover": {
+                        transform: "translateY(-3px)",
+                      },
                     }}
                   >
                     <ArticleIcon
@@ -212,7 +243,8 @@ export default function FilesMonthRooms({ salaId }) {
                     />
                     {file.name.replace(".pdf", "")}
                   </Button>
-                  {
+
+                  {hasRoles("secretario") && (
                     <>
                       <Button
                         variant="text"
@@ -221,7 +253,7 @@ export default function FilesMonthRooms({ salaId }) {
                         sx={{ minWidth: "auto", padding: 0 }}
                         aria-label={`Editar archivo ${file.name}`}
                       >
-                        <EditIcon sx={{ fontSize: 25 }} />
+                        <EditIcon sx={{ fontSize: 20 }} />
                       </Button>
 
                       <Button
@@ -231,54 +263,61 @@ export default function FilesMonthRooms({ salaId }) {
                         sx={{ minWidth: "auto", padding: 0 }}
                         aria-label={`Eliminar archivo ${file.name}`}
                       >
-                        <DeleteIcon sx={{ fontSize: 25 }} />
+                        <DeleteIcon sx={{ fontSize: 20 }} />
                       </Button>
 
                       <CheckWarning
+                        fileName={file.nameSatinize}
                         onToggle={(isVisible) =>
                           handleToggleWarning(file.name, isVisible)
                         }
                       />
                     </>
-                  }
+                  )}
                 </Box>
               </Box>
             ))}
           </Box>
         </Box>
       )}
-      <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 4 }}>
-        <FormControl size="small" disabled={loading} sx={{ width: "150px" }}>
-          <InputLabel sx={{ fontSize: 15 }}>Nombre</InputLabel>
-          <Select
-            labelId="select-name-label"
-            value={selectedName}
-            onChange={(e) => setSelectedName(e.target.value)}
-            label="Seleccionar Nombre"
-            size="small"
-          >
-            <MenuItem value="">Nombre</MenuItem>
-            {predefinedNames.map((name, index) => (
-              <MenuItem key={index} value={name}>
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+      {hasRoles("secretario") && (
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 4 }}>
+          <FormControl size="small" disabled={loading} sx={{ width: "150px" }}>
+            <InputLabel sx={{ fontSize: 15 }}>Nombre</InputLabel>
+            <Select
+              labelId="select-name-label"
+              value={selectedName}
+              onChange={(e) => setSelectedName(e.target.value)}
+              label="Seleccionar Nombre"
+              size="small"
+            >
+              <MenuItem value="">Nombre</MenuItem>
+              {predefinedNames.map((name, index) => (
+                <MenuItem key={index} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <Button
-          variant="contained"
-          component="label"
-          onClick={() => fileInputRef.current.click()}
-          disabled={loading || !selectedName}
-          startIcon={
-            loading ? <CircularProgress size={15} /> : <UploadIcon size={15} />
-          }
-          aria-label="Cargar archivo"
-        >
-          {loading ? "Subiendo..." : "Subir"}
-        </Button>
-      </Box>
+          <Button
+            variant="contained"
+            component="label"
+            onClick={() => fileInputRef.current.click()}
+            disabled={loading || !selectedName}
+            startIcon={
+              loading ? (
+                <CircularProgress size={15} />
+              ) : (
+                <UploadIcon size={15} />
+              )
+            }
+            aria-label="Cargar archivo"
+          >
+            {loading ? "Subiendo..." : "Subir"}
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 }

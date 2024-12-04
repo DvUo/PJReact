@@ -6,8 +6,16 @@ import ZoomLink from "./ZoomLink";
 
 export default function FilesRoom({ salaId }) {
   return (
-    <Box sx={{ width: "100%" }}>
-      <Typography variant="h6">Archivos Sala {salaId}</Typography>
+    <Box width={"80%"} component={"article"}>
+      <Typography
+        component="h3"
+        variant="h6"
+        sx={{
+          textAlign: "center",
+        }}
+      >
+        Información de sala {salaId}
+      </Typography>
       <FileManager salaId={salaId} />
       <ZoomLink />
     </Box>

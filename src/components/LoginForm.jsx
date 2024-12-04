@@ -36,17 +36,13 @@ const LoginForm = () => {
     try {
       const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-      const response = await axios.post(
-        `${BASE_URL}/api/login`,
-        values,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/login`, values, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
 
       if (response.data.token) {
         login(

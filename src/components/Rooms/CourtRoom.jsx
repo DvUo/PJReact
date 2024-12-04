@@ -22,6 +22,7 @@ export default function CourtRoom() {
       xs: "300px",
       sm: "350px",
       md: "400px",
+      lg: "450px",
     },
     backgroundColor: (theme) => theme.palette.card.main,
   };
@@ -100,7 +101,12 @@ export default function CourtRoom() {
             )}
 
             {card === "Archivos" && (
-              <Box sx={{ mt: 4 }}>
+              <Box
+                sx={{
+                  width: "80%",
+                  margin: "0 auto",
+                }}
+              >
                 <FilesMonthRooms />
               </Box>
             )}

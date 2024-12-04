@@ -15,6 +15,7 @@ const paperStyles = (theme) => ({
     xs: "300px",
     sm: "350px",
     md: "400px",
+    lg: "450px",
   },
   backgroundColor: theme.palette.card.main,
 });
