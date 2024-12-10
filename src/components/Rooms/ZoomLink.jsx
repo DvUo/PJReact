@@ -15,6 +15,7 @@ export default function ZoomLink() {
   const [zoomLink, setZoomLink] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const roles = JSON.parse(localStorage.getItem("roles") || "[]");
   const hasRoles = (role) => roles.includes(role);
@@ -22,21 +23,45 @@ export default function ZoomLink() {
   const theme = useTheme();
 
   useEffect(() => {
+    if (isEditing || hasFetched) return;
+
     const fetchZoomLink = async () => {
       try {
         setLoading(true);
-        const link = await getZoomLink();
+
+        const localStorageKey = "zoom-link";
+        let link;
+
+        if (!hasRoles("secretario")) {
+          const cachedLink = localStorage.getItem(localStorageKey);
+          if (cachedLink) {
+            setZoomLink(cachedLink);
+          }
+
+          link = await getZoomLink();
+
+          if (!cachedLink || cachedLink !== link) {
+            localStorage.setItem(localStorageKey, link || "");
+          }
+        } else {
+          link = await getZoomLink();
+        }
+
         setZoomLink(link || "");
-        if (!link && hasRoles("secretario")) setIsEditing(true); // Solo entra en modo edición si no hay enlace y el rol es "secretario"
+
+        if (!link && hasRoles("secretario")) {
+          setIsEditing(true);
+        }
       } catch (error) {
         console.error("Error al cargar el enlace de Zoom:", error);
       } finally {
         setLoading(false);
+        setHasFetched(true);
       }
     };
 
     fetchZoomLink();
-  }, []);
+  }, [hasRoles, isEditing, hasFetched]);
 
   const handleSaveLink = async () => {
     try {
@@ -45,11 +70,14 @@ export default function ZoomLink() {
       alert("Enlace de Zoom actualizado correctamente.");
       setIsEditing(false);
     } catch (error) {
-      console.error("Error al guardar el enlace de Zoom:", error);
       alert("Hubo un error al guardar el enlace.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
   };
 
   return (
@@ -63,14 +91,12 @@ export default function ZoomLink() {
             onChange={(e) => setZoomLink(e.target.value)}
             placeholder="https://zoom.us/..."
             sx={{ mb: 2 }}
-            disabled={loading}
             aria-label="Ingresar enlace de Zoom"
           />
           <Button
             variant="contained"
             color="primary"
             onClick={handleSaveLink}
-            disabled={!zoomLink.trim() || loading}
             aria-label="Guardar enlace de Zoom"
           >
             {loading ? "Guardando..." : "Guardar enlace"}
@@ -114,7 +140,7 @@ export default function ZoomLink() {
                 textDecoration: "none",
               }}
             >
-              Ingresar via Zoom
+              Ingresar vía Zoom
             </a>
           </Typography>
 
@@ -128,7 +154,7 @@ export default function ZoomLink() {
                   backgroundColor: theme.palette.button.dark,
                 },
               }}
-              onClick={() => setIsEditing(true)}
+              onClick={handleEditClick}
               aria-label="Editar enlace de Zoom"
             >
               Editar
