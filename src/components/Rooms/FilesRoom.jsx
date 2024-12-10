@@ -1,6 +1,5 @@
-import React from "react";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import FileManager from "../Rooms/FileManager";
 import ZoomLink from "./ZoomLink";
 

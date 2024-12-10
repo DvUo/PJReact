@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Alert,
-  Container,
-  Paper
-} from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+
 import axios from "axios";
 import { useUser } from "../components/context/UserContext";
 
@@ -36,7 +36,8 @@ const LoginForm = () => {
     try {
       const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-      const response = await axios.post(`${BASE_URL}/login`, values, {
+      const dataToSend = { ...values, name: values.username };
+      const response = await axios.post(`${BASE_URL}/login`, dataToSend, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -77,21 +78,21 @@ const LoginForm = () => {
     <Container
       maxWidth="sm"
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        height: '100vh'
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        height: "100vh",
       }}
     >
       <Paper
         elevation={6}
         sx={{
           padding: {
-            xs: 2,  // Pequeño
-            sm: 3,  // Mediano
-            md: 4   // Grande
+            xs: 2, // Pequeño
+            sm: 3, // Mediano
+            md: 4, // Grande
           },
-          borderRadius: 2
+          borderRadius: 2,
         }}
       >
         <Typography
@@ -99,13 +100,13 @@ const LoginForm = () => {
           align="center"
           gutterBottom
           sx={{
-            fontWeight: 'bold',
-            color: 'primary.main',
+            fontWeight: "bold",
+            color: "primary.main",
             mb: {
               xs: 2,
               sm: 3,
-              md: 4
-            }
+              md: 4,
+            },
           }}
         >
           Iniciar Sesión
@@ -119,8 +120,8 @@ const LoginForm = () => {
               mb: {
                 xs: 1,
                 sm: 2,
-                md: 3
-              }
+                md: 3,
+              },
             }}
           >
             {errorMessage}
@@ -128,21 +129,23 @@ const LoginForm = () => {
         )}
 
         <Formik
-          initialValues={{ username: '', password: '' }}
+          initialValues={{ username: "", password: "" }}
           validate={validateForm}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting, errors, touched }) => (
             <Form>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: {
-                  xs: 1,
-                  sm: 2,
-                  md: 3
-                }
-              }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: {
+                    xs: 1,
+                    sm: 2,
+                    md: 3,
+                  },
+                }}
+              >
                 <Field
                   as={TextField}
                   name="username"
@@ -154,8 +157,8 @@ const LoginForm = () => {
                   sx={{
                     mb: {
                       xs: 1,
-                      sm: 2
-                    }
+                      sm: 2,
+                    },
                   }}
                 />
 
@@ -171,8 +174,8 @@ const LoginForm = () => {
                   sx={{
                     mb: {
                       xs: 1,
-                      sm: 2
-                    }
+                      sm: 2,
+                    },
                   }}
                 />
 
@@ -187,13 +190,13 @@ const LoginForm = () => {
                     mt: {
                       xs: 1,
                       sm: 2,
-                      md: 3
+                      md: 3,
                     },
                     py: {
                       xs: 1,
                       sm: 1.5,
-                      md: 2
-                    }
+                      md: 2,
+                    },
                   }}
                 >
                   {isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"}

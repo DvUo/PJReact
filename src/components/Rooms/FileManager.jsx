@@ -58,7 +58,7 @@ export default function FilesMonthRooms({ salaId }) {
       const localStorageKey = `files-${salaId}`;
       let formattedFiles;
 
-      if (!hasRoles("secretario")) {
+      if (!hasRoles("archivero")) {
         const cachedFiles = localStorage.getItem(localStorageKey);
 
         if (cachedFiles) {
@@ -259,7 +259,7 @@ export default function FilesMonthRooms({ salaId }) {
                     {file.name}
                   </Button>
 
-                  {hasRoles("secretario") && (
+                  {hasRoles("archivero") && (
                     <>
                       <Button
                         variant="text"
@@ -294,7 +294,7 @@ export default function FilesMonthRooms({ salaId }) {
           </Box>
         </Box>
       )}
-      {hasRoles("secretario") && (
+      {hasRoles("archivero") && (
         <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 4 }}>
           <FormControl size="small" disabled={loading} sx={{ width: "150px" }}>
             <InputLabel sx={{ fontSize: 15 }}>Nombre</InputLabel>

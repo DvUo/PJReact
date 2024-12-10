@@ -1,11 +1,10 @@
-import {
-  TextField,
-  Button,
-  Box,
-  Paper,
-  Typography,
-  Avatar,
-} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+
 import { useState, useEffect } from "react";
 import { getZoomLink, updateZoomLink } from "../../Services/ZoomServices";
 import { useTheme } from "@mui/material/styles";
@@ -32,7 +31,7 @@ export default function ZoomLink() {
         const localStorageKey = "zoom-link";
         let link;
 
-        if (!hasRoles("secretario")) {
+        if (!hasRoles("ingeniero")) {
           const cachedLink = localStorage.getItem(localStorageKey);
           if (cachedLink) {
             setZoomLink(cachedLink);
@@ -49,7 +48,7 @@ export default function ZoomLink() {
 
         setZoomLink(link || "");
 
-        if (!link && hasRoles("secretario")) {
+        if (!link && hasRoles("ingeniero")) {
           setIsEditing(true);
         }
       } catch (error) {
@@ -144,7 +143,7 @@ export default function ZoomLink() {
             </a>
           </Typography>
 
-          {hasRoles("secretario") && (
+          {hasRoles("ingeniero") && (
             <Button
               variant="contained"
               sx={{
