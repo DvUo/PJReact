@@ -1,34 +1,20 @@
-import { Box, Checkbox } from "@mui/material";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useState, useEffect } from "react";
 
-export default function CheckWarning({ fileName, onToggle }) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  // Cargar estado desde localStorage al montar el componente
-  useEffect(() => {
-    const storedState = JSON.parse(localStorage.getItem("warnings")) || {};
-    if (storedState[fileName]) {
-      setIsChecked(storedState[fileName]);
-      onToggle(storedState[fileName]);
-    }
-  }, [fileName, onToggle]);
-
+export default function CheckWarning({ fileName, isActive, onToggle }) {
   const handleToggle = () => {
-    const newCheckedState = !isChecked;
-    setIsChecked(newCheckedState);
-    onToggle(newCheckedState);
-
-    const storedState = JSON.parse(localStorage.getItem("warnings")) || {};
-    storedState[fileName] = newCheckedState;
-    localStorage.setItem("warnings", JSON.stringify(storedState));
+    const newStatus = isActive ? "inactivate" : "activate";
+    console.log(`Nuevo estado: ${newStatus}`);
+    onToggle(fileName, newStatus);
   };
 
   return (
     <Box>
       <Checkbox
-        checked={isChecked}
+        checked={isActive}
         onChange={handleToggle}
         icon={<CheckCircleOutlineIcon />}
         checkedIcon={<CheckCircleIcon />}

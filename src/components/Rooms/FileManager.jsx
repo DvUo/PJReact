@@ -20,7 +20,9 @@ import {
   uploadFile,
   deleteFile,
   updateFile,
+  updateFileStatus,
 } from "../../Services/FilesServices";
+
 import CheckWarning from "./CheckWarning";
 
 export default function FilesMonthRooms({ salaId }) {
@@ -29,7 +31,6 @@ export default function FilesMonthRooms({ salaId }) {
   const [error, setError] = useState(null);
   const [fileToUpdate, setFileToUpdate] = useState(null);
   const [selectedName, setSelectedName] = useState("");
-  const [warningVisible, setWarningVisible] = useState({});
   const fileInputRef = useRef(null);
   const updateInputRef = useRef(null);
   const roles = JSON.parse(localStorage.getItem("roles") || "[]");
@@ -54,35 +55,34 @@ export default function FilesMonthRooms({ salaId }) {
       setLoading(true);
       setError(null);
 
-      if (hasRoles("secretario")) {
-        const formattedFiles = await getFiles(salaId);
-        setFiles(formattedFiles);
-        setLoading(false);
-      } else {
-        const cachedFiles = localStorage.getItem(`files-${salaId}`);
+      const localStorageKey = `files-${salaId}`;
+      let formattedFiles;
+
+      if (!hasRoles("archivero")) {
+        const cachedFiles = localStorage.getItem(localStorageKey);
 
         if (cachedFiles) {
           setFiles(JSON.parse(cachedFiles));
         }
 
-        const formattedFiles = await getFiles(salaId);
+        formattedFiles = await getFiles(salaId);
 
-        const localStorageFiles = JSON.parse(cachedFiles || "[]");
-
+        const cachedData = cachedFiles ? JSON.parse(cachedFiles) : null;
         if (
-          JSON.stringify(formattedFiles) !== JSON.stringify(localStorageFiles)
+          !cachedData ||
+          JSON.stringify(cachedData) !== JSON.stringify(formattedFiles)
         ) {
-          setFiles(formattedFiles);
-          localStorage.setItem(
-            `files-${salaId}`,
-            JSON.stringify(formattedFiles)
-          );
+          localStorage.setItem(localStorageKey, JSON.stringify(formattedFiles));
         }
-
-        setLoading(false);
+      } else {
+        formattedFiles = await getFiles(salaId);
       }
+
+      setFiles(formattedFiles);
+      console.log(formattedFiles);
     } catch (error) {
       setError(error.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -152,11 +152,26 @@ export default function FilesMonthRooms({ salaId }) {
     }
   };
 
-  const handleToggleWarning = (fileName, isVisible) => {
-    setWarningVisible((prev) => ({
-      ...prev,
-      [fileName]: isVisible,
-    }));
+  const handleToggleWarning = async (fileName, newStatus) => {
+    setLoading(true);
+    try {
+      const updatedFileName =
+        newStatus === "inactivate"
+          ? fileName.replace("-inactivate.pdf", "-activate.pdf")
+          : fileName.replace("-activate.pdf", "-inactivate.pdf");
+
+      await updateFileStatus(updatedFileName, newStatus);
+
+      setFiles((prevFiles) =>
+        prevFiles.map((file) =>
+          file.nameSatinize === fileName ? { ...file, status: newStatus } : file
+        )
+      );
+    } catch (error) {
+      console.error("Error al actualizar el estado:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -195,7 +210,7 @@ export default function FilesMonthRooms({ salaId }) {
                   width: "100%",
                 }}
               >
-                {warningVisible[file.name] && (
+                {file.status === "activate" ? (
                   <Typography
                     sx={{
                       fontSize: "0.875rem",
@@ -203,9 +218,9 @@ export default function FilesMonthRooms({ salaId }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Por favor, revise este documento con prioridad.
+                    Documento prioritario
                   </Typography>
-                )}
+                ) : null}
 
                 <Box
                   sx={{
@@ -241,10 +256,10 @@ export default function FilesMonthRooms({ salaId }) {
                         left: "8px",
                       }}
                     />
-                    {file.name.replace(".pdf", "")}
+                    {file.name}
                   </Button>
 
-                  {hasRoles("secretario") && (
+                  {hasRoles("archivero") && (
                     <>
                       <Button
                         variant="text"
@@ -268,9 +283,8 @@ export default function FilesMonthRooms({ salaId }) {
 
                       <CheckWarning
                         fileName={file.nameSatinize}
-                        onToggle={(isVisible) =>
-                          handleToggleWarning(file.name, isVisible)
-                        }
+                        isActive={file.status === "activate"}
+                        onToggle={handleToggleWarning}
                       />
                     </>
                   )}
@@ -280,7 +294,7 @@ export default function FilesMonthRooms({ salaId }) {
           </Box>
         </Box>
       )}
-      {hasRoles("secretario") && (
+      {hasRoles("archivero") && (
         <Box sx={{ display: "flex", gap: 1, alignItems: "center", mt: 4 }}>
           <FormControl size="small" disabled={loading} sx={{ width: "150px" }}>
             <InputLabel sx={{ fontSize: 15 }}>Nombre</InputLabel>

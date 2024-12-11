@@ -12,6 +12,7 @@ export const getFiles = async (folder = 0) => {
         name: file.name,
         nameSatinize: file.nameSatinize,
         folder: file.folder,
+        status: file.status,
       }));
     } else {
       throw new Error("Los datos recibidos no son un array");
@@ -58,5 +59,37 @@ export const updateFile = async (file, sala) => {
 
   if (response.status !== 200) {
     throw new Error("Error al actualizar el archivo");
+  }
+};
+
+export const updateFileStatus = async (fileName, status) => {
+  try {
+    console.log("Enviando solicitud con:", {
+      url: `${API_BASE_URL}/files/update-status/${fileName}`,
+      status,
+    });
+
+    const response = await axios.post(
+      `${API_BASE_URL}/files/update-status/${fileName}`,
+      { status },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      throw new Error("Error al actualizar el estado del archivo");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error("Error detallado al actualizar el estado:", {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+    });
+    throw error;
   }
 };
