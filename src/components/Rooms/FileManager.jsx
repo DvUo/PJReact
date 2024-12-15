@@ -40,10 +40,12 @@ export default function FilesMonthRooms({ salaId }) {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const predefinedNames = [
-    "Tabla Semanal",
-    "Tabla Agregada",
-    "Archivo3",
-    "Archivo4",
+    "Tabla semanal",
+    "Tabla agregada",
+    "Acta de instalación",
+    "Anuncio de causas",
+    "Estado diario",
+    "Turno judicial",
   ];
 
   useEffect(() => {
