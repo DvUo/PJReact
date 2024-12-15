@@ -5,7 +5,13 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export const getFiles = async (folder = 0) => {
   try {
     const url = `${API_BASE_URL}/files?folder=${folder}`;
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      withCredentials: true,
+    });
 
     if (Array.isArray(response.data)) {
       return response.data.map((file) => ({
@@ -30,7 +36,9 @@ export const uploadFile = async (file, sala) => {
   const response = await axios.post(`${API_BASE_URL}/files/upload`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Accept: "application/json",
     },
+    withCredentials: true,
   });
 
   if (response.status !== 200) {
@@ -40,7 +48,14 @@ export const uploadFile = async (file, sala) => {
 
 export const deleteFile = async (fileNameSatinize) => {
   const response = await axios.delete(
-    `${API_BASE_URL}/files/delete/${fileNameSatinize}`
+    `${API_BASE_URL}/files/delete/${fileNameSatinize}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      withCredentials: true,
+    }
   );
   if (response.status !== 200) {
     throw new Error("Error al eliminar el archivo");
@@ -54,7 +69,14 @@ export const updateFile = async (file, sala) => {
 
   const response = await axios.post(
     `${API_BASE_URL}/files/update/${file.name}`,
-    formData
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+      },
+      withCredentials: true,
+    }
   );
 
   if (response.status !== 200) {
@@ -75,7 +97,9 @@ export const updateFileStatus = async (fileName, status) => {
       {
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
+        withCredentials: true,
       }
     );
 
@@ -85,11 +109,6 @@ export const updateFileStatus = async (fileName, status) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error detallado al actualizar el estado:", {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
-    });
     throw error;
   }
 };

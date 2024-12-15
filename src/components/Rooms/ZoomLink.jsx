@@ -52,7 +52,6 @@ export default function ZoomLink() {
           setIsEditing(true);
         }
       } catch (error) {
-        console.error("Error al cargar el enlace de Zoom:", error);
       } finally {
         setLoading(false);
         setHasFetched(true);
@@ -60,7 +59,7 @@ export default function ZoomLink() {
     };
 
     fetchZoomLink();
-  }, [hasRoles, isEditing, hasFetched]);
+  }, []);
 
   const handleSaveLink = async () => {
     try {
