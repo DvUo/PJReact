@@ -4,16 +4,16 @@ import { App } from "./App.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./theme.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
 
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />
       </ThemeProvider>
-    </HashRouter>
+   </BrowserRouter>
   
 );
