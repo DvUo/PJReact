@@ -25,7 +25,7 @@ import {
 
 import CheckWarning from "./CheckWarning";
 
-export default function FilesMonthRooms({ salaId }) {
+export default function FileManager({ salaId }) {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -81,7 +81,6 @@ export default function FilesMonthRooms({ salaId }) {
       }
 
       setFiles(formattedFiles);
-      console.log(formattedFiles);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -123,7 +122,6 @@ export default function FilesMonthRooms({ salaId }) {
         prevFiles.filter((f) => f.nameSatinize !== file.nameSatinize)
       );
     } catch (error) {
-      console.error("Error al eliminar el archivo:", error);
       setError("Error al eliminar el archivo: " + error.message);
     }
   };
@@ -146,7 +144,6 @@ export default function FilesMonthRooms({ salaId }) {
       await updateFile(updatedFile, salaId);
       await fetchFiles();
     } catch (error) {
-      console.error("Error en la actualización:", error);
       setError("Error al actualizar el archivo: " + error.message);
     } finally {
       setLoading(false);
@@ -170,7 +167,6 @@ export default function FilesMonthRooms({ salaId }) {
         )
       );
     } catch (error) {
-      console.error("Error al actualizar el estado:", error);
     } finally {
       setLoading(false);
     }

@@ -1,15 +1,13 @@
 import { Box, Button, Grid2, Paper, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 import justiceCourt2 from "../../img/justice-court2.svg";
 import justiceCourt1 from "../../img/justice-court.svg";
-
 import FilesMonthRooms from "./FilesMonthRooms";
 import BackButton from "../BackButton";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function CourtRoom() {
   const cards = ["Salas", "Archivos"];
-
   const paperStyle = {
     minHeight: "400px",
     p: 3,

@@ -4,10 +4,10 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
-    base: mode === "production" ? "./" : "/", 
+    base: mode === "production" ? "/" : "/",
     build: {
-      outDir: 'dist',
-      assetsDir: 'assets'
-    }
+      outDir: "dist",
+      assetsDir: "assets",
+    },
   };
 });

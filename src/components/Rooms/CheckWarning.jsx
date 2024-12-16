@@ -7,7 +7,6 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 export default function CheckWarning({ fileName, isActive, onToggle }) {
   const handleToggle = () => {
     const newStatus = isActive ? "inactivate" : "activate";
-    console.log(`Nuevo estado: ${newStatus}`);
     onToggle(fileName, newStatus);
   };
 
