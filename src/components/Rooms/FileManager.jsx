@@ -15,6 +15,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import UploadIcon from "@mui/icons-material/Upload";
 import ArticleIcon from "@mui/icons-material/Article";
 
+import { useMediaQuery } from "@mui/material";
+
 import {
   getFiles,
   uploadFile,
@@ -34,6 +36,7 @@ export default function FileManager({ salaId }) {
   const fileInputRef = useRef(null);
   const updateInputRef = useRef(null);
   const roles = JSON.parse(localStorage.getItem("roles") || "[]");
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
   const hasRoles = (role) => roles.includes(role);
 
@@ -246,14 +249,18 @@ export default function FileManager({ salaId }) {
                       "&:hover": {
                         transform: "translateY(-3px)",
                       },
+                      fontSize: isSmallScreen ? "0.75rem" : "1rem",
                     }}
                   >
-                    <ArticleIcon
-                      style={{
-                        position: "absolute",
-                        left: "8px",
-                      }}
-                    />
+                    {!(hasRoles("archivero") && isSmallScreen) && (
+                      <ArticleIcon
+                        style={{
+                          position: "absolute",
+                          left: "8px",
+                        }}
+                      />
+                    )}
+
                     {file.name}
                   </Button>
 

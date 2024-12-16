@@ -1,20 +1,21 @@
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-
-import { useState, useEffect } from "react";
-import { getZoomLink, updateZoomLink } from "../../Services/ZoomServices";
 import { useTheme } from "@mui/material/styles";
 import zoomIcon from "../../img/zoomIcon.svg";
+import { getZoomLink, updateZoomLink } from "../../Services/ZoomServices";
+import DialogZoom from "./DialogZoom"; // Importamos el nuevo componente
 
 export default function ZoomLink() {
   const [zoomLink, setZoomLink] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasFetched, setHasFetched] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const roles = JSON.parse(localStorage.getItem("roles") || "[]");
   const hasRoles = (role) => roles.includes(role);
@@ -78,6 +79,18 @@ export default function ZoomLink() {
     setIsEditing(true);
   };
 
+  const handleDialogClose = (accept) => {
+    setOpenDialog(false);
+    if (accept) {
+      window.open(zoomLink, "_blank"); // Redirige al enlace
+    }
+  };
+
+  const handleLinkClick = (e) => {
+    e.preventDefault(); // Previene la redirección inmediata
+    setOpenDialog(true); // Muestra el dialog
+  };
+
   return (
     <Box sx={{ mt: 4 }}>
       {isEditing ? (
@@ -120,7 +133,6 @@ export default function ZoomLink() {
               bgcolor: theme.palette.background.default,
             }}
           />
-
           <Typography
             variant="body1"
             sx={{
@@ -130,9 +142,7 @@ export default function ZoomLink() {
           >
             <a
               href={zoomLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Enlace a la reunión de Zoom"
+              onClick={handleLinkClick}
               style={{
                 color: "inherit",
                 textDecoration: "none",
@@ -164,6 +174,13 @@ export default function ZoomLink() {
           No está disponible el enlace a Zoom.
         </Typography>
       )}
+
+      <DialogZoom
+        open={openDialog}
+        onClose={handleDialogClose}
+        onConfirm={(link) => window.open(link, "_blank")}
+        zoomLink={zoomLink}
+      />
     </Box>
   );
 }
