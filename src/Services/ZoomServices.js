@@ -2,9 +2,10 @@ import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const getZoomLink = async () => {
+export const getZoomLink = async (salaId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/zoom-link`, {
+      params: { sala_id: salaId },
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -17,11 +18,11 @@ export const getZoomLink = async () => {
   }
 };
 
-export const updateZoomLink = async (zoomLink) => {
+export const updateZoomLink = async (zoomLink, salaId) => {
   try {
     await axios.post(
       `${API_BASE_URL}/zoom-link`,
-      { zoom_link: zoomLink },
+      { zoom_link: zoomLink, sala_id: salaId },
       {
         headers: {
           "Content-Type": "application/json",

@@ -8,9 +8,9 @@ import Avatar from "@mui/material/Avatar";
 import { useTheme } from "@mui/material/styles";
 import zoomIcon from "../../img/zoomIcon.svg";
 import { getZoomLink, updateZoomLink } from "../../Services/ZoomServices";
-import DialogZoom from "./DialogZoom"; // Importamos el nuevo componente
+import DialogZoom from "./DialogZoom";
 
-export default function ZoomLink() {
+export default function ZoomLink({ salaId }) {
   const [zoomLink, setZoomLink] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,30 +29,33 @@ export default function ZoomLink() {
       try {
         setLoading(true);
 
-        const localStorageKey = "zoom-link";
+        const localStorageKey = `zoom-link-${salaId}`;
         let link;
 
+        // Solo los ingenieros deben poder editar el enlace
         if (!hasRoles("ingeniero")) {
           const cachedLink = localStorage.getItem(localStorageKey);
           if (cachedLink) {
             setZoomLink(cachedLink);
           }
-
-          link = await getZoomLink();
-
-          if (!cachedLink || cachedLink !== link) {
-            localStorage.setItem(localStorageKey, link || "");
-          }
+          link = await getZoomLink(salaId);
+          setZoomLink(link || "");
         } else {
-          link = await getZoomLink();
+          // Los ingenieros pueden ver y editar el enlace
+          link = await getZoomLink(salaId);
+          setZoomLink(link || "");
+          if (!link) {
+            setIsEditing(true);
+          }
         }
 
-        setZoomLink(link || "");
-
-        if (!link && hasRoles("ingeniero")) {
-          setIsEditing(true);
+        // Guardar en caché el enlace para los roles no ingenieros
+        const cachedLink = localStorage.getItem(localStorageKey);
+        if (!cachedLink || cachedLink !== link) {
+          localStorage.setItem(localStorageKey, link || "");
         }
       } catch (error) {
+        console.error("Error al obtener el enlace de Zoom:", error);
       } finally {
         setLoading(false);
         setHasFetched(true);
@@ -60,12 +63,12 @@ export default function ZoomLink() {
     };
 
     fetchZoomLink();
-  }, []);
+  }, [salaId]);
 
   const handleSaveLink = async () => {
     try {
       setLoading(true);
-      await updateZoomLink(zoomLink);
+      await updateZoomLink(zoomLink, salaId);
       alert("Enlace de Zoom actualizado correctamente.");
       setIsEditing(false);
     } catch (error) {
@@ -82,13 +85,13 @@ export default function ZoomLink() {
   const handleDialogClose = (accept) => {
     setOpenDialog(false);
     if (accept) {
-      window.open(zoomLink, "_blank"); // Redirige al enlace
+      window.open(zoomLink, "_blank");
     }
   };
 
   const handleLinkClick = (e) => {
-    e.preventDefault(); // Previene la redirección inmediata
-    setOpenDialog(true); // Muestra el dialog
+    e.preventDefault();
+    setOpenDialog(true);
   };
 
   return (

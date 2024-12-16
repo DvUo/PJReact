@@ -16,7 +16,7 @@ export default function FilesRoom({ salaId }) {
         Información de sala {salaId}
       </Typography>
       <FileManager salaId={salaId} />
-      <ZoomLink />
+      <ZoomLink salaId={salaId} />
     </Box>
   );
 }
