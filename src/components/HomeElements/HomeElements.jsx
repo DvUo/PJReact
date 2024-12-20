@@ -15,6 +15,10 @@ export const HomeElements = () => {
         sx={{
           background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url(${corteTemucoImg}) no-repeat bottom fixed`,
           backgroundSize: "cover",
+          "@media (max-height: 450px)": {
+            height: "80vh",
+            backgroundSize: "cover",
+          },
         }}
       >
         <Box sx={{ maxWidth: "40em" }}>
@@ -41,7 +45,8 @@ export const HomeElements = () => {
               color: "#eee",
               fontSize: {
                 xs: "1rem",
-                sm: "1rem",
+                sm: "1.05rem",
+                md: "1.1rem",
               },
             }}
           >

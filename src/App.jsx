@@ -20,7 +20,7 @@ const AppContent = () => {
   const navLinks = [
     { title: "Inicio", path: "/" },
     { title: "Preguntas Frecuentes", path: "/preguntas-frecuentes" },
-    { title: "Informacion general", path: "/general-information" },
+    { title: "Información general", path: "/general-information" },
     {
       title: "Noticias regionales",
       path: "https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial",
