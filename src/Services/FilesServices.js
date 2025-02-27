@@ -1,10 +1,11 @@
 import axios from "axios";
+import { addVersionToUrl } from "./AddVersionToURL"; // Importa la función
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const getFiles = async (folder = 0) => {
   try {
-    const url = `${API_BASE_URL}/files?folder=${folder}`;
+    const url = addVersionToUrl(`${API_BASE_URL}/files?folder=${folder}`); // Agrega el parámetro de versión
     const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +34,8 @@ export const uploadFile = async (file, sala) => {
   formData.append("file", file);
   formData.append("sala", sala);
 
-  const response = await axios.post(`${API_BASE_URL}/files/upload`, formData, {
+  const url = addVersionToUrl(`${API_BASE_URL}/files/upload`); // Agrega el parámetro de versión
+  const response = await axios.post(url, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
       Accept: "application/json",
@@ -47,16 +49,14 @@ export const uploadFile = async (file, sala) => {
 };
 
 export const deleteFile = async (fileNameSatinize) => {
-  const response = await axios.delete(
-    `${API_BASE_URL}/files/delete/${fileNameSatinize}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      withCredentials: true,
-    }
-  );
+  const url = addVersionToUrl(`${API_BASE_URL}/files/delete/${fileNameSatinize}`); // Agrega el parámetro de versión
+  const response = await axios.delete(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    withCredentials: true,
+  });
   if (response.status !== 200) {
     throw new Error("Error al eliminar el archivo");
   }
@@ -67,17 +67,14 @@ export const updateFile = async (file, sala) => {
   formData.append("file", file);
   formData.append("sala", sala);
 
-  const response = await axios.post(
-    `${API_BASE_URL}/files/update/${file.name}`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Accept: "application/json",
-      },
-      withCredentials: true,
-    }
-  );
+  const url = addVersionToUrl(`${API_BASE_URL}/files/update/${file.name}`); // Agrega el parámetro de versión
+  const response = await axios.post(url, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "application/json",
+    },
+    withCredentials: true,
+  });
 
   if (response.status !== 200) {
     throw new Error("Error al actualizar el archivo");
@@ -86,13 +83,9 @@ export const updateFile = async (file, sala) => {
 
 export const updateFileStatus = async (fileName, status) => {
   try {
-    console.log("Enviando solicitud con:", {
-      url: `${API_BASE_URL}/files/update-status/${fileName}`,
-      status,
-    });
-
+    const url = addVersionToUrl(`${API_BASE_URL}/files/update-status/${fileName}`); // Agrega el parámetro de versión
     const response = await axios.post(
-      `${API_BASE_URL}/files/update-status/${fileName}`,
+      url,
       { status },
       {
         headers: {

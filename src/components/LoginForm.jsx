@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-
+import { addVersionToUrl } from "../Services/AddVersionToURL"; // Importación corregida
 import axios from "axios";
 import { useUser } from "../components/context/UserContext";
 
@@ -37,7 +37,9 @@ const LoginForm = () => {
       const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
       const dataToSend = { ...values, name: values.username };
-      const response = await axios.post(`${BASE_URL}/login`, dataToSend, {
+      const url = addVersionToUrl(`${BASE_URL}/login`); // Se aplica la función a la URL
+
+      const response = await axios.post(url, dataToSend, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
