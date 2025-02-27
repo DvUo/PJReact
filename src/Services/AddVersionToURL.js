@@ -1,4 +1,4 @@
 export const addVersionToUrl = (url) => {
-    const appVersion = import.meta.env.VITE_APP_VERSION;
-    return `${url}?v=${appVersion}`;
-};
+    const version = import.meta.env.VITE_APP_VERSION;
+    return url.includes("?") ? `${url}&v=${version}` : `${url}?v=${version}`;
+  };

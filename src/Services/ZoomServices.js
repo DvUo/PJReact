@@ -16,6 +16,7 @@ export const getZoomLink = async (salaId) => {
     });
     return response.data.zoom_link || null;
   } catch (error) {
+    console.log(error)
     throw new Error("Error al cargar el enlace de Zoom");
   }
 };
@@ -35,6 +36,7 @@ export const updateZoomLink = async (zoomLink, salaId) => {
       }
     );
   } catch (error) {
+    console.log(error)
     throw new Error("Error al guardar el enlace de Zoom");
   }
 };
