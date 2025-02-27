@@ -11,7 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import Drawer from "@mui/material/Drawer";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
-import "./Header.css";
+import "./header.css";
 
 export const Header = ({ navLinks }) => {
   const [open, setOpen] = useState(false);

@@ -10,7 +10,7 @@ import { FrequentQuestions } from "./pages/FrequentQuestions";
 import { lazy, Suspense } from "react";
 import Logout from "./components/Logout";
 import { GeneralInformation } from "./pages/GeneralInformation";
-import Opening_of_files_and_oath_of_lawyers from "./pages/opening_of_files_and_oath_of_lawyers";
+import Opening_of_files_and_oath_of_lawyers from "./pages/Opening_of_files_and_oath_of_lawyers";
 
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 

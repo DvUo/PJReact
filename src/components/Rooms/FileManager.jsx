@@ -8,7 +8,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -48,7 +48,7 @@ export default function FileManager({ salaId }) {
     "Acta de instalación",
     "Anuncio de causas",
     "Estado diario",
-    "Turno judicial",
+    "Proyecto Integ. Salas",
   ];
 
   useEffect(() => {
@@ -200,7 +200,7 @@ export default function FileManager({ salaId }) {
       />
       {files.length > 0 && (
         <Box sx={{ mt: 5 }}>
-          <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
+          <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2}}>
             {files.map((file) => (
               <Box
                 key={`${file.nameSatinize}`}
@@ -231,38 +231,43 @@ export default function FileManager({ salaId }) {
                     width: "100%",
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    component="a"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`${API_BASE_URL}/files/view/${file.nameSatinize}`}
-                    sx={{
-                      flex: 8,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                      padding: 1,
-                      position: "relative",
-                      textAlign: "center",
-                      transition: "transform 0.3s ease",
-                      "&:hover": {
-                        transform: "translateY(-3px)",
-                      },
-                      fontSize: isSmallScreen ? "0.75rem" : "1rem",
-                    }}
-                  >
-                    {!(hasRoles("archivero") && isSmallScreen) && (
+                  
+                  <Tooltip title={file.name} placement="top">
+                    <Button
+                      variant="contained"
+                      component="a"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`${API_BASE_URL}/files/view/${file.nameSatinize}`}
+                      sx={{
+                        flex: 8,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap", // Cambio clave (evita el salto de línea)
+                        maxWidth: isSmallScreen ? "180px" : "280px", // Límite responsive
+                        padding: "6px 16px",
+                        position: "relative",
+                        textAlign: "left",
+                        pl: 4, // Espacio para el ícono
+                        transition: "transform 0.3s ease",
+                        "&:hover": {
+                          transform: "translateY(-3px)",
+                        },
+                        fontSize: isSmallScreen ? "0.75rem" : "1rem",
+                      }}
+                    >
+                      {!(hasRoles("archivero") && isSmallScreen) && (
                       <ArticleIcon
                         style={{
                           position: "absolute",
                           left: "8px",
+                          fontSize: isSmallScreen ? "1rem" : "1rem",
                         }}
                       />
                     )}
-
                     {file.name}
-                  </Button>
+                    </Button>
+                  </Tooltip>
 
                   {hasRoles("archivero") && (
                     <>
